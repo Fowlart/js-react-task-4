@@ -1,0 +1,36 @@
+{
+  "name": "netflix-clone-1",
+  "version": "1.0.0",
+  "description": "clone of netflix",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "build:dev": "npx webpack --config webpack.dev.js",
+    "build:prod": "npx webpack --config webpack.prod.js",
+    "start": "webpack-dev-server --config webpack.dev.js"
+  },
+  "author": "Artur Semikov",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.12.16",
+    "@babel/preset-react": "^7.12.13",
+    "babel-loader": "^8.2.2",
+    "css-loader": "^5.0.2",
+    "html-webpack-plugin": "^4.3.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "style-loader": "^2.0.0",
+    "url-loader": "^4.1.1",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.11.2",
+    "redux": "4.0.5",
+    "react-redux": "7.2.2",
+    "react-router": "5.2.0",
+    "jest": "~26.6.3",
+    "mini-svg-data-uri": "1.2.3",
+    "file-loader": "6.2.0",
+    "styled-components": "5.2.1",
+    "clean-webpack-plugin": "3.0.0"
+  }
+}
