@@ -2,6 +2,8 @@ import React, {useState} from "react";
 import styled from "styled-components";
 import {ResultsFilter} from "../components/MainSectionComponents/ResultsFilter";
 import {Card} from "../components/MainSectionComponents/Card";
+import {MyModal} from "../components/Popup/MyModal";
+import Button from "../components/Reusable/Button.styled";
 
 const MainSectionFlex = styled.div`
   background-color: #232323;
@@ -10,15 +12,12 @@ const MainSectionFlex = styled.div`
   flex-wrap: wrap;
   justify-content: center;`;
 
-const MainSection = (props) => {
+const MainSection = () => {
 
-    //example: used useState without deconstruction
-    let placeHolderArray = useState("What do You want to watch");
-    let inputPlaceHolder = placeHolderArray[0];
-    let setplaceHolder = placeHolderArray[1];
+    const [isModalVisible, setModalVisible] = useState(true);
 
-    function handleClick() {
-        setplaceHolder("ZEN!");
+    function switchModal(e) {
+        setModalVisible(!isModalVisible)
     }
 
     // Todo: fetch from back-end
@@ -36,6 +35,7 @@ const MainSection = (props) => {
 
     return (
         <>
+            <MyModal show={isModalVisible} onClick={switchModal}/>
             <ResultsFilter sections={sectionsForFilter}/>
             <MainSectionFlex>
                 {filmCards.map((card) => (
@@ -48,17 +48,20 @@ const MainSection = (props) => {
 };
 
 const OopsDiv = styled.div`
-  background-color: black;
-  color: red;
-  text-align: center;`;
+background-color: black;
+color: red;
+text-align: center;`;
 
 const OopsText = () => {
-    return (
-        <OopsDiv>
-            <h2>Oops, something went wrong... We are doing our best to fix the issue!</h2>
-        </OopsDiv>
-    );
-};
+return (
+        <
+            OopsDiv>
+        < h2> Oops, something went wrong ... We are doing our best to fix the issue ! < /h2>
+</OopsDiv>
+)
+;
+}
+;
 
 const ErrorBoundaryMainSection = () => {
     let isDataInPlace = true;
