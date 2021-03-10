@@ -7,6 +7,7 @@ import HeaderLink from "../components/HeadersComponents/HeaderLink.styled";
 import InputWraper from "../components/HeadersComponents/InputWraper.styled";
 import Input from "../components/Reusable/Input.styled";
 import Button from "../components/Reusable/Button.styled";
+import {MyModal} from "../components/Popup/MyModal";
 
 const Header = (props) => {
     let inputPlaceHolder;
@@ -14,25 +15,38 @@ const Header = (props) => {
 
     [inputPlaceHolder, setplaceHolder] = useState("What do You want to watch");
 
+    const [isModalVisible, setModalVisible] = useState(false);
+    const [shouldClose, setShouldClose] = useState(true);
+
+    function switchModal(e) {
+        setShouldClose(!shouldClose);
+        setTimeout(() => {
+            setModalVisible(!isModalVisible)
+        }, 400);
+    }
+
     //example: passing standard and custom props into simple element
     let input = (
         <Input type="text" placeholder={inputPlaceHolder} inputColor="black"></Input>
     );
 
     return (
-        <FlexMain>
-            <HeaderFlex>
-                <img src={logo}></img>
-                <HeaderLink>ADD MOVIE</HeaderLink>
-            </HeaderFlex>
-            <InputWraper>
-                <InputStyle>
-                    <span>FIND YOUR FILM</span>
-                    {input}
-                </InputStyle>
-                <Button type="submit" value="SEARCH"/>
-            </InputWraper>
-        </FlexMain>
+        <>
+            <FlexMain>
+                <HeaderFlex>
+                    <img src={logo}></img>
+                    <HeaderLink onClick={switchModal}>ADD MOVIE</HeaderLink>
+                </HeaderFlex>
+                <InputWraper>
+                    <InputStyle>
+                        <span>FIND YOUR FILM</span>
+                        {input}
+                    </InputStyle>
+                    <Button type="submit" value="SEARCH"/>
+                </InputWraper>
+            </FlexMain>
+            <MyModal show={isModalVisible} closeModal={shouldClose} onClick={switchModal}/>
+        </>
     );
 };
 

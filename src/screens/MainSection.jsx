@@ -13,16 +13,6 @@ const MainSectionFlex = styled.div`
 
 const MainSection = () => {
 
-    const [isModalVisible, setModalVisible] = useState(true);
-    const [shouldClose, setShouldClose] = useState(false);
-
-    function switchModal(e) {
-        setShouldClose(!shouldClose);
-        setTimeout(() => {
-            setModalVisible(!isModalVisible)
-        }, 400);
-    }
-
     // Todo: fetch from back-end
     let sectionsForFilter = ["section-1", "section-2", "section-3", "section-4"];
     let filmCards = [
@@ -38,7 +28,6 @@ const MainSection = () => {
 
     return (
         <>
-            <MyModal show={isModalVisible} closeModal={shouldClose} onClick={switchModal}/>
             <ResultsFilter sections={sectionsForFilter}/>
             <MainSectionFlex>
                 {filmCards.map((card) => (
@@ -65,7 +54,6 @@ const OopsText = () => {
 
 const ErrorBoundaryMainSection = () => {
     let isDataInPlace = true;
-
     return isDataInPlace ? <MainSection/> : <OopsText/>;
 };
 
