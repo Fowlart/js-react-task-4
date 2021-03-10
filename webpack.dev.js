@@ -28,7 +28,7 @@ module.exports = {
     devtool: 'inline-source-map',
     devServer: {
         contentBase: path.join(__dirname, "dist"),
-        port: 9000
+        port: 8000
     },
     module: {
         // LOADERS ARE HERE!

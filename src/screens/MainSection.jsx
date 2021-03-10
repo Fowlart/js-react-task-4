@@ -3,7 +3,6 @@ import styled from "styled-components";
 import {ResultsFilter} from "../components/MainSectionComponents/ResultsFilter";
 import {Card} from "../components/MainSectionComponents/Card";
 import {MyModal} from "../components/Popup/MyModal";
-import Button from "../components/Reusable/Button.styled";
 
 const MainSectionFlex = styled.div`
   background-color: #232323;
@@ -15,9 +14,13 @@ const MainSectionFlex = styled.div`
 const MainSection = () => {
 
     const [isModalVisible, setModalVisible] = useState(true);
+    const [shouldClose, setShouldClose] = useState(false);
 
     function switchModal(e) {
-        setModalVisible(!isModalVisible)
+        setShouldClose(!shouldClose);
+        setTimeout(() => {
+            setModalVisible(!isModalVisible)
+        }, 400);
     }
 
     // Todo: fetch from back-end
@@ -35,7 +38,7 @@ const MainSection = () => {
 
     return (
         <>
-            <MyModal show={isModalVisible} onClick={switchModal}/>
+            <MyModal show={isModalVisible} closeModal={shouldClose} onClick={switchModal}/>
             <ResultsFilter sections={sectionsForFilter}/>
             <MainSectionFlex>
                 {filmCards.map((card) => (
@@ -48,20 +51,17 @@ const MainSection = () => {
 };
 
 const OopsDiv = styled.div`
-background-color: black;
-color: red;
-text-align: center;`;
+  background-color: black;
+  color: red;
+  text-align: center;`;
 
 const OopsText = () => {
-return (
-        <
-            OopsDiv>
-        < h2> Oops, something went wrong ... We are doing our best to fix the issue ! < /h2>
-</OopsDiv>
-)
-;
-}
-;
+    return (
+        <OopsDiv>
+            < h2> Oops, something went wrong ... We are doing our best to fix the issue ! < /h2>
+        </OopsDiv>
+    );
+};
 
 const ErrorBoundaryMainSection = () => {
     let isDataInPlace = true;
