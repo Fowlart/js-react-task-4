@@ -20,6 +20,7 @@ const ModalContent = styled.div`
   margin: auto;
   left: 20px;
   right: 20px;
+  bottom: 20px;
   position: fixed;
   width: ${(props) => (props.closeModal ? "0%" : "90%")};
   height: ${(props) => (props.closeModal ? "0%" : "90%")};

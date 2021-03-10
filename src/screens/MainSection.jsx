@@ -1,8 +1,7 @@
-import React, {useState} from "react";
+import React from "react";
 import styled from "styled-components";
 import {ResultsFilter} from "../components/MainSectionComponents/ResultsFilter";
 import {Card} from "../components/MainSectionComponents/Card";
-import {MyModal} from "../components/Popup/MyModal";
 
 const MainSectionFlex = styled.div`
   background-color: #232323;
@@ -17,11 +16,7 @@ const MainSection = () => {
     let sectionsForFilter = ["section-1", "section-2", "section-3", "section-4"];
     let filmCards = [
         {name: "The Fight Club", release: "1999", jenre: "comedy, thriller"},
-        {
-            name: "Venom",
-            release: "2018",
-            jenre: "action, horror, science fiction",
-        },
+        {name: "Venom", release: "2018", jenre: "action, horror, science fiction"},
         {},
         {}
     ];

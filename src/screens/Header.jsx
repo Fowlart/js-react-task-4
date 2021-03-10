@@ -10,19 +10,25 @@ import Button from "../components/Reusable/Button.styled";
 import {MyModal} from "../components/Popup/MyModal";
 
 const Header = (props) => {
-    let inputPlaceHolder;
-    let setplaceHolder;
 
-    [inputPlaceHolder, setplaceHolder] = useState("What do You want to watch");
-
+    const [inputPlaceHolder, setPlaceHolder] = useState("What do You want to watch");
     const [isModalVisible, setModalVisible] = useState(false);
     const [shouldClose, setShouldClose] = useState(true);
 
     function switchModal(e) {
-        setShouldClose(!shouldClose);
-        setTimeout(() => {
-            setModalVisible(!isModalVisible)
-        }, 400);
+        if (isModalVisible) {
+            setShouldClose(true);
+            setTimeout(() => {
+                setModalVisible(false)
+            }, 400);
+        }
+        else {
+            setModalVisible(true);
+            setTimeout(() => {
+                setShouldClose(false)
+            }, 100);
+        }
+
     }
 
     //example: passing standard and custom props into simple element
