@@ -8,8 +8,9 @@ import InputWraper from "../components/HeadersComponents/InputWraper.styled";
 import Input from "../components/Reusable/Input.styled";
 import Button from "../components/Reusable/Button.styled";
 import {MyModal} from "../components/Popup/MyModal";
+import {AddMovieContent} from "../components/Popup/AddMovieModalContent";
 
-const Header = (props) => {
+export const Header = (props) => {
 
     const [inputPlaceHolder, setPlaceHolder] = useState("What do You want to watch");
     const [isModalVisible, setModalVisible] = useState(false);
@@ -21,8 +22,7 @@ const Header = (props) => {
             setTimeout(() => {
                 setModalVisible(false)
             }, 400);
-        }
-        else {
+        } else {
             setModalVisible(true);
             setTimeout(() => {
                 setShouldClose(false)
@@ -51,9 +51,7 @@ const Header = (props) => {
                     <Button type="submit" value="SEARCH"/>
                 </InputWraper>
             </FlexMain>
-            <MyModal show={isModalVisible} closeModal={shouldClose} onClick={switchModal}/>
+            <MyModal show={isModalVisible} closeModal={shouldClose} content={<AddMovieContent onClick={switchModal}/>}/>
         </>
     );
 };
-
-export default Header;

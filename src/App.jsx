@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from './screens/Header';
+import {Header} from './screens/Header';
 import ErrorBoundaryMainSection from './screens/MainSection';
 
 function App() {

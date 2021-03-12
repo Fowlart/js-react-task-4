@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import styled from "styled-components";
+import {MyModal} from "../Popup/MyModal";
 
 const CardWrapper = styled.div`
   border: solid 2px #ffffff;
@@ -57,6 +58,11 @@ const FilmNameSpan = styled.div`
   font-size: x-large;
 `;
 
+//Todo
+const ThreeSpotModal = styled(MyModal)`
+  border: solid red 1px;
+`;
+
 export const Card = (props) => {
 
     const [name, setName] = useState(props.name);
@@ -72,10 +78,29 @@ export const Card = (props) => {
         setTransparent(false);
     }
 
+    const [isModalVisible, setModalVisible] = useState(false);
+    const [shouldClose, setShouldClose] = useState(true);
+
+    function switchModal(e) {
+        if (isModalVisible) {
+            setShouldClose(true);
+            setTimeout(() => {
+                setModalVisible(false)
+            }, 400);
+        } else {
+            setModalVisible(true);
+            setTimeout(() => {
+                setShouldClose(false)
+            }, 100);
+        }
+
+    }
+
     return (
         <CardWrapper onMouseMove={setContextMenuButtonNonTransparent} onMouseLeave={setContextMenuButtonTransparent}>
-            <CardHeader><ThreeSpotButton transparent={transparent}>
-                <ThreeSpotButtonSpan>...</ThreeSpotButtonSpan></ThreeSpotButton></CardHeader>
+            <ThreeSpotModal show={isModalVisible} closeModal={shouldClose} onClick={switchModal}/>
+            <CardHeader><ThreeSpotButton onClick={switchModal}
+                                         transparent={transparent}><ThreeSpotButtonSpan>...</ThreeSpotButtonSpan></ThreeSpotButton></CardHeader>
             <CardMainSection></CardMainSection>
             <CardNameRelease>
                 <FilmNameSpan>{name}</FilmNameSpan>
