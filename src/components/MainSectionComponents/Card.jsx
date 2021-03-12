@@ -10,8 +10,36 @@ const CardWrapper = styled.div`
   display: flex;
   flex-direction: column;`;
 
+const CardHeader = styled.div`
+  height: 10%;
+  display: flex;
+  justify-content: flex-end;
+`;
+
+const ThreeSpotButton = styled.button`
+  opacity: ${(props) => (props.transparent ? "10%" : "100%")};
+  position: relative;
+  top: 3px;
+  right: 5px;
+  width: 15%;
+  border-radius: 55%;
+  transform: rotate(90deg);
+  background-color: #232323;
+  transition: opacity 0.5s;
+  color: white;
+  font-size: x-large;
+  border: none;
+`;
+
+const ThreeSpotButtonSpan = styled.span`
+  position: relative;
+  right: 1px;
+  bottom: 7px;
+  font-size: x-large;
+`;
+
 const CardMainSection = styled.div`
-  height: 80%;
+  height: 70%;
 `;
 
 const CardNameRelease = styled.div`
@@ -30,21 +58,24 @@ const FilmNameSpan = styled.div`
 `;
 
 export const Card = (props) => {
-    let name;
-    let setName;
 
-    let release;
-    let setRelease;
+    const [name, setName] = useState(props.name);
+    const [release, setRelease] = useState(props.release);
+    const [jenre, setJenre] = useState(props.jenre);
+    const [transparent, setTransparent] = useState(true);
 
-    let jenre;
-    let setJenre;
+    function setContextMenuButtonTransparent() {
+        setTransparent(true);
+    }
 
-    [name, setName] = useState(props.name);
-    [release, setRelease] = useState(props.release);
-    [jenre, setJenre] = useState(props.jenre);
+    function setContextMenuButtonNonTransparent() {
+        setTransparent(false);
+    }
 
     return (
-        <CardWrapper>
+        <CardWrapper onMouseMove={setContextMenuButtonNonTransparent} onMouseLeave={setContextMenuButtonTransparent}>
+            <CardHeader><ThreeSpotButton transparent={transparent}>
+                <ThreeSpotButtonSpan>...</ThreeSpotButtonSpan></ThreeSpotButton></CardHeader>
             <CardMainSection></CardMainSection>
             <CardNameRelease>
                 <FilmNameSpan>{name}</FilmNameSpan>
