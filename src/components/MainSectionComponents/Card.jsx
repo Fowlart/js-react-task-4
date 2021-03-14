@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import styled from "styled-components";
-import {ExitButton} from "../Reusable/ExitButton.styled";
 import Button from "../Reusable/Button.styled";
 
 const CardWrapper = styled.div`
@@ -25,7 +24,7 @@ const ThreeSpotButton = styled.button`
   right: 5px;
   width: 15%;
   border-radius: 55%;
-  transform: rotate(90deg);
+  transform: ${(props) => (props.isContextMenuVisible? "" : "rotate(90deg)")}; 
   background-color: #232323;
   transition: opacity 0.5s;
   color: white;
@@ -82,21 +81,32 @@ export const Card = (props) => {
     const [isContextMenuVisible, setContextMenuVisible] = useState(false);
 
     function setContextMenuButtonTransparent() {
-        setTransparent(true);
+        if (!isContextMenuVisible) {
+            setTransparent(true);
+        }
     }
 
     function setContextMenuButtonNonTransparent() {
-        setTransparent(false);
+        if (!isContextMenuVisible) {
+            setTransparent(false);
+        }
     }
 
     function switchContextMenu(e) {
-        setContextMenuVisible(!isContextMenuVisible);
+        if (isContextMenuVisible) {
+            setTransparent(true);
+            setContextMenuVisible(false);
+        } else {
+            setTransparent(false);
+            setContextMenuVisible(true);
+        }
+
     }
 
     return (
         <CardWrapper onMouseMove={setContextMenuButtonNonTransparent} onMouseLeave={setContextMenuButtonTransparent}>
             <CardHeader><ThreeSpotButton onClick={switchContextMenu}
-                                         transparent={transparent}><ThreeSpotButtonSpan>...</ThreeSpotButtonSpan></ThreeSpotButton></CardHeader>
+                                         transparent={transparent} isContextMenuVisible={isContextMenuVisible}><ThreeSpotButtonSpan>...</ThreeSpotButtonSpan></ThreeSpotButton></CardHeader>
             <CardMainSection>
                 <CardContextMenu visible={isContextMenuVisible}>
                     <CardContextMenuButton type="submit" value="EDIT"/>
