@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Input from "../Reusable/Input.styled";
 import Button from "../HeadersComponents/InputWraperInputWraper.styled";
+import {ExitButton} from "../Reusable/ExitButton.styled";
 
 const CentredSection = styled.div`
   display: flex;
@@ -45,13 +46,6 @@ const Select = styled.select`
 
 const Label = styled.label`
   color: red;
-`;
-
-const ExitButton = styled(Button)`
-  background-color: #232323;
-  font-size: x-large;
-  border: none;
-  width: 5%;
 `;
 
 const ResetButton = styled(Button)`

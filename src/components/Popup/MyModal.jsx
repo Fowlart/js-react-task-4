@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import {AddMovieContent} from "./AddMovieModalContent";
 
 const ModalWrapper = styled.div`
   display: ${(props) => (props.show ? "block" : "none")};

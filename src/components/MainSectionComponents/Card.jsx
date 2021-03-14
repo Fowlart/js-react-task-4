@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import styled from "styled-components";
-import {MyModal} from "../Popup/MyModal";
+import {ExitButton} from "../Reusable/ExitButton.styled";
+import Button from "../Reusable/Button.styled";
 
 const CardWrapper = styled.div`
   border: solid 2px #ffffff;
@@ -58,9 +59,18 @@ const FilmNameSpan = styled.div`
   font-size: x-large;
 `;
 
-//Todo
-const ThreeSpotModal = styled(MyModal)`
-  border: solid red 1px;
+const CardContextMenu = styled.div`
+  position: relative;
+  width: 75%;
+  height: 30%;
+  top: 10px;
+  left: 20px;
+  display: ${(props) => (props.visible ? "flex" : "none")};
+  flex-direction: column;
+`;
+
+const CardContextMenuButton = styled(Button)`
+  width: 100%;
 `;
 
 export const Card = (props) => {
@@ -69,6 +79,7 @@ export const Card = (props) => {
     const [release, setRelease] = useState(props.release);
     const [jenre, setJenre] = useState(props.jenre);
     const [transparent, setTransparent] = useState(true);
+    const [isContextMenuVisible, setContextMenuVisible] = useState(false);
 
     function setContextMenuButtonTransparent() {
         setTransparent(true);
@@ -78,30 +89,20 @@ export const Card = (props) => {
         setTransparent(false);
     }
 
-    const [isModalVisible, setModalVisible] = useState(false);
-    const [shouldClose, setShouldClose] = useState(true);
-
-    function switchModal(e) {
-        if (isModalVisible) {
-            setShouldClose(true);
-            setTimeout(() => {
-                setModalVisible(false)
-            }, 400);
-        } else {
-            setModalVisible(true);
-            setTimeout(() => {
-                setShouldClose(false)
-            }, 100);
-        }
-
+    function switchContextMenu(e) {
+        setContextMenuVisible(!isContextMenuVisible);
     }
 
     return (
         <CardWrapper onMouseMove={setContextMenuButtonNonTransparent} onMouseLeave={setContextMenuButtonTransparent}>
-            <ThreeSpotModal show={isModalVisible} closeModal={shouldClose} onClick={switchModal}/>
-            <CardHeader><ThreeSpotButton onClick={switchModal}
+            <CardHeader><ThreeSpotButton onClick={switchContextMenu}
                                          transparent={transparent}><ThreeSpotButtonSpan>...</ThreeSpotButtonSpan></ThreeSpotButton></CardHeader>
-            <CardMainSection></CardMainSection>
+            <CardMainSection>
+                <CardContextMenu visible={isContextMenuVisible}>
+                    <CardContextMenuButton type="submit" value="EDIT"/>
+                    <CardContextMenuButton type="submit" value="DELETE"/>
+                </CardContextMenu>
+            </CardMainSection>
             <CardNameRelease>
                 <FilmNameSpan>{name}</FilmNameSpan>
                 <ReleaseSpan>{release}</ReleaseSpan>
