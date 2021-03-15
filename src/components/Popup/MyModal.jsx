@@ -32,8 +32,31 @@ export const MyModal = (props) => {
     return (
         <ModalWrapper show={props.show}>
             <ModalContent closeModal={props.closeModal}>
-                {props.closeModal ? null :props.content}
+                {props.closeModal ? null : props.content}
             </ModalContent>
         </ModalWrapper>
     );
 };
+
+export class ModalObj extends React.Component {
+
+    constructor(props) {
+        super(props);
+    }
+
+    componentDidMount() {
+    }
+
+    componentWillUnmount() {
+    }
+
+    render() {
+        return (
+            <ModalWrapper show={this.props.visible}>
+                <ModalContent closeModal={!this.props.visible}>
+                    {!this.props.visible ? null : this.props.content}
+                </ModalContent>
+            </ModalWrapper>
+        );
+    }
+}

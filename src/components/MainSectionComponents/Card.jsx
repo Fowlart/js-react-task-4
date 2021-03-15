@@ -1,6 +1,10 @@
 import React, {useState} from "react";
 import styled from "styled-components";
 import Button from "../Reusable/Button.styled";
+import {ModalObj} from "../Popup/MyModal";
+import {AddMovieContent} from "../Popup/AddMovieModalContent";
+import {EditMovieContent} from "../Popup/EditMovieContent";
+import {DeleteMovieContent} from "../Popup/DeleteMovieContent";
 
 const CardWrapper = styled.div`
   border: solid 2px #ffffff;
@@ -79,6 +83,18 @@ export const Card = (props) => {
     const [jenre, setJenre] = useState(props.jenre);
     const [transparent, setTransparent] = useState(true);
     const [isContextMenuVisible, setContextMenuVisible] = useState(false);
+    const [editModalVisible, setEditModalVisible] = useState(false);
+    const [deleteModalVisible, setDeleteModalVisible] = useState(false);
+
+    function switchDeleteModal(e){
+        setDeleteModalVisible(!deleteModalVisible);
+    }
+
+    function switchEditModal(e) {
+        console.log(e);
+        setEditModalVisible(!editModalVisible);
+    }
+
 
     function setContextMenuButtonTransparent() {
         if (!isContextMenuVisible) {
@@ -105,12 +121,14 @@ export const Card = (props) => {
 
     return (
         <CardWrapper onMouseMove={setContextMenuButtonNonTransparent} onMouseLeave={setContextMenuButtonTransparent}>
+            <ModalObj content={<EditMovieContent onClick={switchEditModal}/>} visible={editModalVisible}/>
+            <ModalObj content={<DeleteMovieContent onClick={switchDeleteModal}/>} visible={deleteModalVisible}/>
             <CardHeader><ThreeSpotButton onClick={switchContextMenu}
                                          transparent={transparent} isContextMenuVisible={isContextMenuVisible}><ThreeSpotButtonSpan>...</ThreeSpotButtonSpan></ThreeSpotButton></CardHeader>
             <CardMainSection>
                 <CardContextMenu visible={isContextMenuVisible}>
-                    <CardContextMenuButton type="submit" value="EDIT"/>
-                    <CardContextMenuButton type="submit" value="DELETE"/>
+                    <CardContextMenuButton  onClick={switchEditModal} type="submit" value="EDIT"/>
+                    <CardContextMenuButton onClick={switchDeleteModal} type="submit" value="DELETE"/>
                 </CardContextMenu>
             </CardMainSection>
             <CardNameRelease>
