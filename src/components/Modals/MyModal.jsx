@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const ModalWrapper = styled.div`
-  display: ${(props) => (props.show ? "block" : "none")};
+  display: block;
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
   width: 100%; /* Full width */
@@ -27,17 +27,6 @@ const ModalContent = styled.div`
   border: solid gold 1px;
 `;
 
-
-export const MyModal = (props) => {
-    return (
-        <ModalWrapper show={props.show}>
-            <ModalContent closeModal={props.closeModal}>
-                {props.closeModal ? null : props.content}
-            </ModalContent>
-        </ModalWrapper>
-    );
-};
-
 export class ModalObj extends React.Component {
 
     constructor(props) {
@@ -45,6 +34,7 @@ export class ModalObj extends React.Component {
     }
 
     componentDidMount() {
+
     }
 
     componentWillUnmount() {
@@ -52,7 +42,7 @@ export class ModalObj extends React.Component {
 
     render() {
         return (
-            <ModalWrapper show={this.props.visible}>
+            <ModalWrapper>
                 <ModalContent closeModal={!this.props.visible}>
                     {!this.props.visible ? null : this.props.content}
                 </ModalContent>

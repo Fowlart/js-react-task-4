@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import Input from "../Reusable/Input.styled";
 import Button from "../HeadersComponents/InputWraperInputWraper.styled";
 import {ExitButton} from "../Reusable/ExitButton.styled";
 

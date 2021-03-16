@@ -7,8 +7,8 @@ import HeaderLink from "../components/HeadersComponents/HeaderLink.styled";
 import InputWraper from "../components/HeadersComponents/InputWraper.styled";
 import Input from "../components/Reusable/Input.styled";
 import Button from "../components/Reusable/Button.styled";
-import {ModalObj} from "../components/Popup/MyModal";
-import {AddMovieContent} from "../components/Popup/AddMovieModalContent";
+import {ModalObj} from "../components/Modals/MyModal";
+import {AddMovieContent} from "../components/Modals/AddMovieModalContent";
 
 export const Header = (props) => {
 
@@ -39,7 +39,7 @@ export const Header = (props) => {
                     <Button type="submit" value="SEARCH"/>
                 </InputWraper>
             </FlexMain>
-            <ModalObj content={<AddMovieContent onClick={switchModal}/>} visible={modalVisible}/>
+            {modalVisible? <ModalObj content={<AddMovieContent onClick={switchModal}/>} visible={modalVisible}/>:null}
         </>
     );
 };
