@@ -8,7 +8,6 @@ const ModalWrapper = styled.div`
   width: 100%; /* Full width */
   height: 100%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
-  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 `;
 
 const ModalContent = styled.div`
@@ -20,11 +19,10 @@ const ModalContent = styled.div`
   right: 20px;
   bottom: 20px;
   position: fixed;
-  width: ${(props) => (props.closeModal ? "0%" : "90%")};
-  height: ${(props) => (props.closeModal ? "0%" : "90%")};
+  height: ${(props) => (props.visible ? "0%" : "90%")};
   z-index: 1;
   transition: width 0.5s, height 0.5s;
-  border: solid gold 1px;
+  border: ${(props) => (props.visible ? "" : "solid gold 1px")};
 `;
 
 export class ModalObj extends React.Component {
@@ -37,17 +35,20 @@ export class ModalObj extends React.Component {
     componentDidMount() {
         setInterval(() => {
             this.setState({visible: true})
-        }, 500);
+        }, 40);
     }
 
     componentWillUnmount() {
-        this.setState({visible: false});
+
+    }
+
+    componentDidUpdate() {
     }
 
     render() {
         return (
             <ModalWrapper>
-                <ModalContent closeModal={!this.state.visible}>
+                <ModalContent id={1234} visible={!this.state.visible}>
                     {!this.state.visible ? null : this.props.content}
                 </ModalContent>
             </ModalWrapper>
