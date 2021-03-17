@@ -25,21 +25,13 @@ export const Card = (props) => {
     const [isContextMenuVisible, setContextMenuVisible] = useState(false);
     const [editModalVisible, setEditModalVisible] = useState(false);
     const [deleteModalVisible, setDeleteModalVisible] = useState(false);
-    const [editModalVisibleDelay,setEditModalVisibleDelay] = useState(false);
 
     function switchDeleteModal(e) {
         setDeleteModalVisible(!deleteModalVisible);
     }
 
     function switchEditModal(e) {
-        if (editModalVisible) {
-            setEditModalVisibleDelay(false);
-            setTimeout(()=>{setEditModalVisible(false)},500);
-        }
-        else {
-            setEditModalVisible(true);
-            setTimeout(()=>{setEditModalVisibleDelay(true)},500);
-        }
+       setEditModalVisible(!editModalVisible)
     }
 
 
@@ -67,8 +59,8 @@ export const Card = (props) => {
 
     return (
         <CardWrapper onMouseMove={setContextMenuButtonNonTransparent} onMouseLeave={setContextMenuButtonTransparent}>
-            {editModalVisible?<ModalObj content={<EditMovieContent onClick={switchEditModal}/>} visible={editModalVisibleDelay}/>:null}
-            {deleteModalVisible? <ModalObj content={<DeleteMovieContent onClick={switchDeleteModal}/>} visible={deleteModalVisible}/>:null}
+            {editModalVisible?<ModalObj content={<EditMovieContent onClick={switchEditModal}/>}/>:null}
+            {deleteModalVisible? <ModalObj content={<DeleteMovieContent onClick={switchDeleteModal}/>}/>:null}
             <CardHeader><ThreeSpotButton onClick={switchContextMenu}
                                          transparent={transparent}
                                          isContextMenuVisible={isContextMenuVisible}><ThreeSpotButtonSpan>...</ThreeSpotButtonSpan></ThreeSpotButton></CardHeader>

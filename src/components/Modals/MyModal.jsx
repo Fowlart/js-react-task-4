@@ -31,20 +31,24 @@ export class ModalObj extends React.Component {
 
     constructor(props) {
         super(props);
+        this.state = {visible: false};
     }
 
     componentDidMount() {
-
+        setInterval(() => {
+            this.setState({visible: true})
+        }, 500);
     }
 
     componentWillUnmount() {
+        this.setState({visible: false});
     }
 
     render() {
         return (
             <ModalWrapper>
-                <ModalContent closeModal={!this.props.visible}>
-                    {!this.props.visible ? null : this.props.content}
+                <ModalContent closeModal={!this.state.visible}>
+                    {!this.state.visible ? null : this.props.content}
                 </ModalContent>
             </ModalWrapper>
         );

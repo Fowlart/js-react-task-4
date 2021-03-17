@@ -33,7 +33,7 @@ export const AddMovieContent = (props) => {
                 <Label>MOVIE URL</Label><ModalInput type="text"/>
             </CentredSection>
             <CentredSection justify="center">
-                <Label for="date-picker">RELEASE DATE</Label><DatePicker type="date" id="date-picker"/>
+                <Label>RELEASE DATE</Label><DatePicker type="date" id="date-picker"/>
             </CentredSection>
             <CentredSection justify="center">
                 <Label>GENRE</Label><Select name="genre">
