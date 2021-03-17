@@ -31,6 +31,7 @@ export const Card = (props) => {
     }
 
     function switchEditModal(e) {
+        console.log(e);
         setEditModalVisible(!editModalVisible)
     }
 
@@ -59,8 +60,13 @@ export const Card = (props) => {
 
     return (
         <CardWrapper onMouseMove={setContextMenuButtonNonTransparent} onMouseLeave={setContextMenuButtonTransparent}>
-            {editModalVisible ? <ModalObj content={<EditMovieContent onClick={switchEditModal}/>}/> : null}
-            {deleteModalVisible ? <ModalObj content={<DeleteMovieContent onClick={switchDeleteModal}/>}/> : null}
+            {editModalVisible && (
+                <ModalObj
+                    content={<EditMovieContent onClick={switchEditModal} />}
+                    onCloseModalHandler={switchEditModal}
+                />
+            )}
+            {deleteModalVisible && <ModalObj content={<DeleteMovieContent onClick={switchDeleteModal}/>}/>}
             <CardHeader><ThreeSpotButton onClick={switchContextMenu}
                                          transparent={transparent}
                                          isContextMenuVisible={isContextMenuVisible}><ThreeSpotButtonSpan>...</ThreeSpotButtonSpan></ThreeSpotButton></CardHeader>

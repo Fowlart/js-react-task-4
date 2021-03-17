@@ -5,8 +5,6 @@ const ModalWrapper = styled.div`
   display: block;
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
 `;
 
@@ -30,16 +28,20 @@ export class ModalObj extends React.Component {
     constructor(props) {
         super(props);
         this.state = {visible: false};
+        this.abc = this.abc.bind(this);
     }
 
     componentDidMount() {
-        setInterval(() => {
+       setInterval(() => {
             this.setState({visible: true})
         }, 40);
     }
 
-    componentWillUnmount() {
+    abc(){
+        this.setState({visible: false});
+    }
 
+    componentWillUnmount() {
     }
 
     componentDidUpdate() {
@@ -48,8 +50,16 @@ export class ModalObj extends React.Component {
     render() {
         return (
             <ModalWrapper>
-                <ModalContent id={1234} visible={!this.state.visible}>
-                    {!this.state.visible ? null : this.props.content}
+                <ModalContent
+                    id={1234}
+                    visible={!this.state.visible}
+                    onAnimationEnd={this.props.onCloseModalHandler}
+                >
+                    <div
+                        style={{color: "white"}}
+                        onClick={this.abc}
+                    >121213134133</div>
+                    {this.props.content}
                 </ModalContent>
             </ModalWrapper>
         );
