@@ -12,11 +12,11 @@ import {AddMovieContent} from "../components/Modals/AddMovieModalContent";
 
 export const Header = (props) => {
 
-    const [modalVisible, setModalVisible] = useState(false);
+    const [headerModalVisible, setModalVisible] = useState(false);
 
     function switchModal(e) {
         console.log(e);
-        setModalVisible(!modalVisible);
+        setModalVisible(!headerModalVisible);
     }
 
     //example: passing standard and custom props into simple element
@@ -39,7 +39,7 @@ export const Header = (props) => {
                     <Button type="submit" value="SEARCH"/>
                 </InputWraper>
             </FlexMain>
-            {modalVisible? <ModalObj content={<AddMovieContent onClick={switchModal}/>} visible={modalVisible}/>:null}
+            {headerModalVisible? <ModalObj content={<AddMovieContent onClick={switchModal}/>} visible={headerModalVisible}/>:null}
         </>
     );
 };

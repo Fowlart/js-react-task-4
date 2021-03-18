@@ -25,14 +25,31 @@ export const Card = (props) => {
     const [isContextMenuVisible, setContextMenuVisible] = useState(false);
     const [editModalVisible, setEditModalVisible] = useState(false);
     const [deleteModalVisible, setDeleteModalVisible] = useState(false);
+    const [modalDeleteContentShouldHide, setModalDeleteContentShouldHide] = useState(false);
+    const [modalEditContentShouldHide, setModalEditContentShouldHide] = useState(false);
 
     function switchDeleteModal(e) {
-        setDeleteModalVisible(!deleteModalVisible);
+        console.log("switchDeleteModal");
+        if (deleteModalVisible) {
+            setModalDeleteContentShouldHide(true);
+            setTimeout(() => {setDeleteModalVisible(false)}, 600);
+        }
+        else {
+            setModalDeleteContentShouldHide(false);
+            setDeleteModalVisible(true);
+        }
     }
 
     function switchEditModal(e) {
-        console.log(e);
-        setEditModalVisible(!editModalVisible)
+        console.log("switchEditModal");
+        if (editModalVisible) {
+            setModalEditContentShouldHide(true);
+            setTimeout(() => {setEditModalVisible(false)}, 600);
+        }
+        else {
+            setModalEditContentShouldHide(false);
+            setEditModalVisible(true);
+        }
     }
 
 
@@ -60,13 +77,8 @@ export const Card = (props) => {
 
     return (
         <CardWrapper onMouseMove={setContextMenuButtonNonTransparent} onMouseLeave={setContextMenuButtonTransparent}>
-            {editModalVisible && (
-                <ModalObj
-                    content={<EditMovieContent onClick={switchEditModal} />}
-                    onCloseModalHandler={switchEditModal}
-                />
-            )}
-            {deleteModalVisible && <ModalObj content={<DeleteMovieContent onClick={switchDeleteModal}/>}/>}
+            {editModalVisible && <ModalObj content={<EditMovieContent onClick={switchEditModal} />} hideContent={modalEditContentShouldHide}/>}
+            {deleteModalVisible && <ModalObj content={<DeleteMovieContent onClick={switchDeleteModal}/>} hideContent={modalDeleteContentShouldHide}/>}
             <CardHeader><ThreeSpotButton onClick={switchContextMenu}
                                          transparent={transparent}
                                          isContextMenuVisible={isContextMenuVisible}><ThreeSpotButtonSpan>...</ThreeSpotButtonSpan></ThreeSpotButton></CardHeader>

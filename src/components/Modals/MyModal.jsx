@@ -17,10 +17,10 @@ const ModalContent = styled.div`
   right: 20px;
   bottom: 20px;
   position: fixed;
-  height: ${(props) => (props.visible ? "0%" : "90%")};
+  height: ${(props) => ((props.visible && !props.hideContent) ? "90%" : "0%")};
   z-index: 1;
   transition: width 0.5s, height 0.5s;
-  border: ${(props) => (props.visible ? "" : "solid gold 1px")};
+  border: solid gold 1px;
 `;
 
 export class ModalObj extends React.Component {
@@ -28,37 +28,29 @@ export class ModalObj extends React.Component {
     constructor(props) {
         super(props);
         this.state = {visible: false};
-        this.abc = this.abc.bind(this);
     }
 
     componentDidMount() {
-       setInterval(() => {
+        //todo: add fetch
+        console.log("component mounted!!!");
+        setTimeout(() => {
             this.setState({visible: true})
         }, 40);
     }
 
-    abc(){
-        this.setState({visible: false});
-    }
 
     componentWillUnmount() {
+        console.log("component unmounted!");
     }
 
-    componentDidUpdate() {
+    componentDidUpdate(prevProps) {
+        console.log(prevProps);
     }
 
     render() {
         return (
             <ModalWrapper>
-                <ModalContent
-                    id={1234}
-                    visible={!this.state.visible}
-                    onAnimationEnd={this.props.onCloseModalHandler}
-                >
-                    <div
-                        style={{color: "white"}}
-                        onClick={this.abc}
-                    >121213134133</div>
+                <ModalContent visible={this.state.visible} hideContent={this.props.hideContent}>
                     {this.props.content}
                 </ModalContent>
             </ModalWrapper>
