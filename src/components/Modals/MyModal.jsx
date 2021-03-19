@@ -1,5 +1,24 @@
 import React from "react";
-import styled from "styled-components";
+import styled, {keyframes} from "styled-components";
+
+const grow = keyframes`
+  0% {
+    height: 0%;
+  }
+  100% {
+    height: 90%;
+  }
+`;
+
+const hide = keyframes`
+
+  0% {
+    height: 90%;
+  }
+  100% {
+    height: 0%;
+  }
+`;
 
 const ModalWrapper = styled.div`
   display: block;
@@ -17,7 +36,8 @@ const ModalContent = styled.div`
   right: 20px;
   bottom: 20px;
   position: fixed;
-  height: ${(props) => ((props.visible && !props.hideContent) ? "90%" : "0%")};
+  animation: ${(props) => ((props.visible) ? grow : hide)} 0.5s linear;
+  height: 90%;
   z-index: 1;
   transition: width 0.5s, height 0.5s;
   border: solid gold 1px;
@@ -27,15 +47,19 @@ export class ModalObj extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {visible: false};
+        this.closeModal = this.closeModal.bind(this);
+
+    }
+
+    closeModal() {
+        if (!this.props.visible) {
+            this.props.closeHandler()
+        };
     }
 
     componentDidMount() {
+        console.log("component mounted!");
         //todo: add fetch
-        console.log("component mounted!!!");
-        setTimeout(() => {
-            this.setState({visible: true})
-        }, 40);
     }
 
 
@@ -43,17 +67,15 @@ export class ModalObj extends React.Component {
         console.log("component unmounted!");
     }
 
-    componentDidUpdate(prevProps) {
-        console.log(prevProps);
-    }
-
     render() {
         return (
             <ModalWrapper>
-                <ModalContent visible={this.state.visible} hideContent={this.props.hideContent}>
+                <ModalContent onAnimationEnd={this.closeModal} visible={this.props.visible}>
                     {this.props.content}
                 </ModalContent>
             </ModalWrapper>
         );
     }
 }
+
+

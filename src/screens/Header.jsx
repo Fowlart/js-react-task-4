@@ -12,11 +12,16 @@ import {AddMovieContent} from "../components/Modals/AddMovieModalContent";
 
 export const Header = (props) => {
 
-    const [headerModalVisible, setModalVisible] = useState(false);
+    const [headerModalVisible, setHeaderModalVisible] = useState(false);
+    const [headerModalVisibleOuter, setHeaderModalVisibleOuter] = useState(false);
 
-    function switchModal(e) {
-        console.log(e);
-        setModalVisible(!headerModalVisible);
+    function onHeaderModal(e) {
+        setHeaderModalVisibleOuter(true);
+        setHeaderModalVisible(true);
+    }
+
+    function offHeaderModal(e) {
+        setHeaderModalVisibleOuter(false);
     }
 
     //example: passing standard and custom props into simple element
@@ -29,7 +34,7 @@ export const Header = (props) => {
             <FlexMain>
                 <HeaderFlex>
                     <img src={logo}></img>
-                    <HeaderLink onClick={switchModal}>ADD MOVIE</HeaderLink>
+                    <HeaderLink onClick={onHeaderModal}>ADD MOVIE</HeaderLink>
                 </HeaderFlex>
                 <InputWraper>
                     <InputStyle>
@@ -39,7 +44,7 @@ export const Header = (props) => {
                     <Button type="submit" value="SEARCH"/>
                 </InputWraper>
             </FlexMain>
-            {headerModalVisible? <ModalObj content={<AddMovieContent onClick={switchModal}/>} visible={headerModalVisible}/>:null}
+            {headerModalVisibleOuter && <ModalObj content={<AddMovieContent onClick={()=>{setHeaderModalVisible(false)}}/>} visible={headerModalVisible} closeHandler={offHeaderModal}/>}
         </>
     );
 };
