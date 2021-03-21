@@ -17,7 +17,7 @@ const MainSection = () => {
     let filmCards = [
         {name: "The Fight Club", release: "1999", jenre: "comedy, thriller"},
         {name: "Venom", release: "2018", jenre: "action, horror, science fiction"},
-        {},
+        {name: true, release: "Lala", jenre: 1234},
         {}
     ];
 

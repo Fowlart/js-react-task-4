@@ -14,6 +14,7 @@ import {
     ThreeSpotButton,
     ThreeSpotButtonSpan
 } from "./CardComponents.Styled";
+import PropTypes from 'prop-types';
 
 
 export const Card = (props) => {
@@ -30,6 +31,13 @@ export const Card = (props) => {
 
     const [editModalVisible, setEditModalVisible] = useState(true);
     const [editModalVisibleOuter, setEditModalVisibleOuter] = useState(false);
+
+    //Todo: why no any type
+    Card.propsTypes = {
+        name: PropTypes.array,
+        release: PropTypes.number,
+        jenre: PropTypes.string
+    }
 
     function onEditModal(e) {
         setEditModalVisibleOuter(true);
@@ -75,10 +83,14 @@ export const Card = (props) => {
         <CardWrapper onMouseMove={setContextMenuButtonNonTransparent} onMouseLeave={setContextMenuButtonTransparent}>
 
             {editModalVisibleOuter &&
-            <ModalObj content={<EditMovieContent onClick={()=>{setEditModalVisible(false)}}/>} visible={editModalVisible} closeHandler={offEditModal}/>}
+            <ModalObj content={<EditMovieContent onClick={() => {
+                setEditModalVisible(false)
+            }}/>} visible={editModalVisible} closeHandler={offEditModal}/>}
 
             {deleteModalVisibleOuter &&
-            <ModalObj content={<DeleteMovieContent onClick={()=>{setDeleteModalVisible(false)}}/>} visible={deleteModalVisible} closeHandler={offDeleteModal}/>}
+            <ModalObj content={<DeleteMovieContent onClick={() => {
+                setDeleteModalVisible(false)
+            }}/>} visible={deleteModalVisible} closeHandler={offDeleteModal}/>}
 
             <CardHeader><ThreeSpotButton onClick={switchContextMenu}
                                          transparent={transparent}
@@ -102,4 +114,4 @@ Card.defaultProps = {
     name: `Very good film`,
     release: "2001",
     jenre: "unknown",
-};
+}

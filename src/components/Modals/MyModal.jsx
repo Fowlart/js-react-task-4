@@ -48,13 +48,12 @@ export class ModalObj extends React.Component {
     constructor(props) {
         super(props);
         this.closeModal = this.closeModal.bind(this);
-
     }
 
     closeModal() {
         if (!this.props.visible) {
-            this.props.closeHandler()
-        };
+            this.props.closeHandler();
+        }
     }
 
     componentDidMount() {
@@ -62,12 +61,12 @@ export class ModalObj extends React.Component {
         //todo: add fetch
     }
 
-
     componentWillUnmount() {
         console.log("component unmounted!");
     }
 
     render() {
+        // SyntheticEvent 'onAnimationEnd':
         return (
             <ModalWrapper>
                 <ModalContent onAnimationEnd={this.closeModal} visible={this.props.visible}>
@@ -77,5 +76,3 @@ export class ModalObj extends React.Component {
         );
     }
 }
-
-
