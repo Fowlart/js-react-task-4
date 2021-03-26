@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
 import {ResultsFilter} from "../components/MainSectionComponents/ResultsFilter";
 import {Card} from "../components/MainSectionComponents/Card";
@@ -14,20 +14,26 @@ const MainSection = () => {
 
     // Todo: fetch from back-end
     let sectionsForFilter = ["section-1", "section-2", "section-3", "section-4"];
-    let filmCards = [
-        {name: "The Fight Club", release: "1999", jenre: "comedy, thriller"},
-        {name: "Venom", release: "2018", jenre: "action, horror, science fiction"},
-        {name: true, release: "Lala", jenre: 1234},
-        {}
+    let inputs = [
+        {id: "card-1", name: "The Fight Club", release: "1999", jenre: "comedy, thriller"},
+        {id: "card-2", name: "Venom", release: "2018", jenre: "action, horror, science fiction"},
+        {id: "card-3", name: true, release: "Lala", jenre: 1234},
+        {id: "card-4"}
     ];
+    const[filmCards, setFilmCards] = useState(inputs);
+
+    function deleteCard(cardId){
+        console.log("you about to delete card with id: "+cardId);
+        setFilmCards(filmCards.filter(item=>{ return (item.id !==cardId)}));
+    }
 
     return (
         <>
             <ResultsFilter sections={sectionsForFilter}/>
             <MainSectionFlex>
                 {filmCards.map((card) => (
-                    <Card name={card.name} release={card.release} jenre={card.jenre}
-                          key={`${card.name} + ${Math.random()}`}/>
+                    <Card deleteCardHandler={deleteCard} name={card.name} release={card.release} jenre={card.jenre}
+                          key={card.id} id={card.id}/>
                 ))}
             </MainSectionFlex>
         </>

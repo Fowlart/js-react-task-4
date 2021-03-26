@@ -22,6 +22,13 @@ const SubmitButton = styled(Button)`
 `;
 
 export const DeleteMovieContent = (props) => {
+
+    function deleteParentCard(){
+        if (props.deleteCardHandler!=null){
+            props.deleteCardHandler();
+        }
+    }
+
     return (
         <>
             <CentredSection justify="flex-end" directionRow>
@@ -34,7 +41,7 @@ export const DeleteMovieContent = (props) => {
                 <h3>Are you sure you want to delete this movie?</h3>
             </CentredSection>
             <CentredSection justify="flex-end" directionRow>
-                <SubmitButton type="submit" value="CONFIRM"/>
+                <SubmitButton type="submit" value="CONFIRM" onClick={deleteParentCard}/>
             </CentredSection>
         </>);
 };

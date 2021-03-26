@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {ModalObj} from "../Modals/MyModal";
 import {EditMovieContent} from "../Modals/EditMovieContent";
 import {DeleteMovieContent} from "../Modals/DeleteMovieContent";
@@ -16,13 +16,16 @@ import {
 } from "./CardComponents.Styled";
 import PropTypes from 'prop-types';
 
+let cardNumber = 0;
 
 export const Card = (props) => {
 
-    const [name, setName] = useState(props.name);
-    const [release, setRelease] = useState(props.release);
-    const [jenre, setJenre] = useState(props.jenre);
+    // Example: rid of unnecessary variables in destructor
+    const [name,] = useState(props.name);
+    const [release,] = useState(props.release);
+    const [jenre,] = useState(props.jenre);
 
+    const [cardVisible, setCardVisible] = useState(true);
     const [transparent, setTransparent] = useState(true);
     const [isContextMenuVisible, setContextMenuVisible] = useState(false);
 
@@ -32,12 +35,23 @@ export const Card = (props) => {
     const [editModalVisible, setEditModalVisible] = useState(true);
     const [editModalVisibleOuter, setEditModalVisibleOuter] = useState(false);
 
-    //Todo: why no any type
+    //Example:
+    useEffect(() => {
+        cardNumber++;
+        console.log("card counter: " + cardNumber);
+        return function onUnmount() {
+            cardNumber--;
+        };
+
+    }, [cardVisible]);
+
+    //Todo: why no any type check?
     Card.propsTypes = {
         name: PropTypes.array,
         release: PropTypes.number,
         jenre: PropTypes.string
     }
+
 
     function onEditModal(e) {
         setEditModalVisibleOuter(true);
@@ -79,16 +93,21 @@ export const Card = (props) => {
         }
     }
 
-    return (
-        <CardWrapper onMouseMove={setContextMenuButtonNonTransparent} onMouseLeave={setContextMenuButtonTransparent}>
+    function deleteCard(){
+        props.deleteCardHandler(props.id);
+        console.log("card deleted");
+    }
 
+    return (
+        cardVisible &&
+        <CardWrapper onMouseMove={setContextMenuButtonNonTransparent} onMouseLeave={setContextMenuButtonTransparent}>
             {editModalVisibleOuter &&
             <ModalObj content={<EditMovieContent onClick={() => {
                 setEditModalVisible(false)
             }}/>} visible={editModalVisible} closeHandler={offEditModal}/>}
 
             {deleteModalVisibleOuter &&
-            <ModalObj content={<DeleteMovieContent onClick={() => {
+            <ModalObj content={<DeleteMovieContent deleteCardHandler={deleteCard} onClick={() => {
                 setDeleteModalVisible(false)
             }}/>} visible={deleteModalVisible} closeHandler={offDeleteModal}/>}
 
