@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {ModalObj} from "../Modals/MyModal";
 import {EditMovieContent} from "../Modals/EditMovieContent";
 import {DeleteMovieContent} from "../Modals/DeleteMovieContent";
@@ -19,7 +19,7 @@ import PropTypes from 'prop-types';
 let cardNumber = 0;
 
 export const Card = (props) => {
-
+    const counter = useRef();
     // Example: rid of unnecessary variables in destructor
     const [name,] = useState(props.name);
     const [release,] = useState(props.release);
@@ -72,6 +72,8 @@ export const Card = (props) => {
     function offDeleteModal(e) {
         setDeleteModalVisibleOuter(false);
     }
+
+
 
     function setContextMenuButtonTransparent() {
         if (!isContextMenuVisible) {

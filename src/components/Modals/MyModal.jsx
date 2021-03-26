@@ -1,5 +1,6 @@
 import React from "react";
 import styled, {keyframes} from "styled-components";
+import {DeleteMovieContent} from "./DeleteMovieContent";
 
 const grow = keyframes`
   0% {
@@ -43,36 +44,23 @@ const ModalContent = styled.div`
   border: solid gold 1px;
 `;
 
-export class ModalObj extends React.Component {
+export const ModalObj = (props) => {
 
-    constructor(props) {
-        super(props);
-        this.closeModal = this.closeModal.bind(this);
-    }
+   //card qty const DeleteModal = <DeleteMovieContent deleteCardHandler={deleteCard} onClick={() => {setDeleteModalVisible(false)}}/>
 
-    closeModal() {
-        if (!this.props.visible) {
-            this.props.closeHandler();
+    function closeModal() {
+        if (!props.visible) {
+            props.closeHandler();
         }
     }
 
-    componentDidMount() {
-        console.log("component mounted!");
-        //todo: add fetch
-    }
-
-    componentWillUnmount() {
-        console.log("component unmounted!");
-    }
-
-    render() {
-        // SyntheticEvent 'onAnimationEnd':
-        return (
-            <ModalWrapper>
-                <ModalContent onAnimationEnd={this.closeModal} visible={this.props.visible}>
-                    {this.props.content}
-                </ModalContent>
-            </ModalWrapper>
-        );
-    }
+    // SyntheticEvent 'onAnimationEnd':
+    return (
+        <ModalWrapper>
+            <ModalContent onAnimationEnd={closeModal} visible={props.visible}>
+                {props.content}
+            </ModalContent>
+        </ModalWrapper>
+    );
 }
+
