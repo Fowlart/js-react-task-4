@@ -20,10 +20,11 @@ const MainSection = () => {
         {id: "card-3", name: true, release: "Lala", jenre: 1234},
         {id: "card-4"}
     ];
+
     const[filmCards, setFilmCards] = useState(inputs);
 
     function deleteCard(cardId){
-        console.log("you about to delete card with id: "+cardId);
+        console.info("you about to delete card with id: "+cardId);
         setFilmCards(filmCards.filter(item=>{ return (item.id !==cardId)}));
     }
 

@@ -35,12 +35,14 @@ export const Card = (props) => {
     const [editModalVisible, setEditModalVisible] = useState(true);
     const [editModalVisibleOuter, setEditModalVisibleOuter] = useState(false);
 
-    //Example:
+    //Example: useEffectUsage
     useEffect(() => {
         cardNumber++;
-        console.log("card counter: " + cardNumber);
+        console.log("card qty: " + cardNumber);
+
         return function onUnmount() {
             cardNumber--;
+            console.log("card qty: " + cardNumber);
         };
 
     }, [cardVisible]);
@@ -94,6 +96,7 @@ export const Card = (props) => {
     }
 
     function deleteCard(){
+        setCardVisible(false);
         props.deleteCardHandler(props.id);
         console.log("card deleted");
     }
