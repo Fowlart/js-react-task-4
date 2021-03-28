@@ -29,11 +29,7 @@ export const Card = (props) => {
     const [transparent, setTransparent] = useState(true);
     const [isContextMenuVisible, setContextMenuVisible] = useState(false);
 
-    const [deleteModalVisible, setDeleteModalVisible] = useState(true);
-    const [deleteModalVisibleOuter, setDeleteModalVisibleOuter] = useState(false);
-
-    const [editModalVisible, setEditModalVisible] = useState(true);
-    const [editModalVisibleOuter, setEditModalVisibleOuter] = useState(false);
+    const [modalContent,setModalContent] = useState(false);
 
     //Example: useEffectUsage
     useEffect(() => {
@@ -53,26 +49,6 @@ export const Card = (props) => {
         release: PropTypes.number,
         jenre: PropTypes.string
     }
-
-
-    function onEditModal(e) {
-        setEditModalVisibleOuter(true);
-        setEditModalVisible(true);
-    }
-
-    function offEditModal(e) {
-        setEditModalVisibleOuter(false);
-    }
-
-    function onDeleteModal(e) {
-        setDeleteModalVisibleOuter(true);
-        setDeleteModalVisible(true);
-    }
-
-    function offDeleteModal(e) {
-        setDeleteModalVisibleOuter(false);
-    }
-
 
 
     function setContextMenuButtonTransparent() {
@@ -98,6 +74,7 @@ export const Card = (props) => {
     }
 
     function deleteCard(){
+        console.log("!")
         setCardVisible(false);
         props.deleteCardHandler(props.id);
         console.log("card deleted");
@@ -106,23 +83,16 @@ export const Card = (props) => {
     return (
         cardVisible &&
         <CardWrapper onMouseMove={setContextMenuButtonNonTransparent} onMouseLeave={setContextMenuButtonTransparent}>
-            {editModalVisibleOuter &&
-            <ModalObj content={<EditMovieContent onClick={() => {
-                setEditModalVisible(false)
-            }}/>} visible={editModalVisible} closeHandler={offEditModal}/>}
 
-            {deleteModalVisibleOuter &&
-            <ModalObj content={<DeleteMovieContent deleteCardHandler={deleteCard} onClick={() => {
-                setDeleteModalVisible(false)
-            }}/>} visible={deleteModalVisible} closeHandler={offDeleteModal}/>}
+            <ModalObj deleteCardHandler={deleteCard} content={modalContent}/>
 
             <CardHeader><ThreeSpotButton onClick={switchContextMenu}
                                          transparent={transparent}
                                          isContextMenuVisible={isContextMenuVisible}><ThreeSpotButtonSpan>...</ThreeSpotButtonSpan></ThreeSpotButton></CardHeader>
             <CardMainSection>
                 <CardContextMenu visible={isContextMenuVisible}>
-                    <CardContextMenuButton onClick={onEditModal} type="submit" value="EDIT"/>
-                    <CardContextMenuButton onClick={onDeleteModal} type="submit" value="DELETE"/>
+                    <CardContextMenuButton onClick={()=>{setModalContent("edit")}} type="submit" value="EDIT"/>
+                    <CardContextMenuButton onClick={()=>{setModalContent("delete")}} type="submit" value="DELETE"/>
                 </CardContextMenu>
             </CardMainSection>
             <CardNameRelease>

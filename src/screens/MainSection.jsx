@@ -16,9 +16,9 @@ const MainSection = () => {
     let sectionsForFilter = ["section-1", "section-2", "section-3", "section-4"];
     let inputs = [
         {id: "card-1", name: "The Fight Club", release: "1999", jenre: "comedy, thriller"},
-        {id: "card-2", name: "Venom", release: "2018", jenre: "action, horror, science fiction"},
-        {id: "card-3", name: true, release: "Lala", jenre: 1234},
-        {id: "card-4"}
+        {id: "card-2", name: "Venom", release: "2018", jenre: "action, horror, science fiction"}
+      //  {id: "card-3", name: true, release: "Lala", jenre: 1234},
+      //  {id: "card-4"}
     ];
 
     const[filmCards, setFilmCards] = useState(inputs);

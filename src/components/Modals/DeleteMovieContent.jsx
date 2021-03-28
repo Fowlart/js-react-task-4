@@ -7,7 +7,7 @@ const CentredSection = styled.div`
   display: flex;
   height: 10%;
   justify-content: ${props => props.justify};
-  flex-direction: ${(props) => (props.directionRow ? "row" : "column")};
+  flex-direction: row;
 `;
 
 const H1 = styled.h1`
@@ -25,14 +25,15 @@ export const DeleteMovieContent = (props) => {
 
     function deleteParentCard(){
         if (props.deleteCardHandler!=null){
+            console.log("here");
             props.deleteCardHandler();
         }
     }
 
     return (
         <>
-            <CentredSection justify="flex-end" directionRow>
-                <ExitButton type="submit" value="X" onClick={props.onClick}/>
+            <CentredSection justify="flex-end">
+                <ExitButton type="submit" value="X" onClick={props.closeHandler}/>
             </CentredSection>
             <CentredSection justify="center">
                 <H1>DELETE MOVIE</H1>
@@ -40,7 +41,7 @@ export const DeleteMovieContent = (props) => {
             <CentredSection justify="center">
                 <h3>Are you sure you want to delete this movie?</h3>
             </CentredSection>
-            <CentredSection justify="flex-end" directionRow>
+            <CentredSection justify="center">
                 <SubmitButton type="submit" value="CONFIRM" onClick={deleteParentCard}/>
             </CentredSection>
         </>);

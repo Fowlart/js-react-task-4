@@ -9,15 +9,15 @@ import Input from "../components/Reusable/Input.styled";
 import Button from "../components/Reusable/Button.styled";
 import {ModalObj} from "../components/Modals/MyModal";
 import {AddMovieContent} from "../components/Modals/AddMovieModalContent";
+import {CardWrapper} from "../components/MainSectionComponents/CardComponents.Styled";
 
 export const Header = (props) => {
 
-    const [headerModalVisible, setHeaderModalVisible] = useState(false);
+
     const [headerModalVisibleOuter, setHeaderModalVisibleOuter] = useState(false);
 
     function onHeaderModal(e) {
         setHeaderModalVisibleOuter(true);
-        setHeaderModalVisible(true);
     }
 
     function offHeaderModal(e) {
@@ -44,7 +44,7 @@ export const Header = (props) => {
                     <Button type="submit" value="SEARCH"/>
                 </InputWraper>
             </FlexMain>
-            {headerModalVisibleOuter && <ModalObj content={<AddMovieContent onClick={()=>{setHeaderModalVisible(false)}}/>} visible={headerModalVisible} closeHandler={offHeaderModal}/>}
+            {headerModalVisibleOuter &&  <ModalObj content="add"/>}
         </>
     );
 };

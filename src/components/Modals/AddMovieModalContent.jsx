@@ -15,7 +15,7 @@ export const AddMovieContent = (props) => {
     return (
         <>
             <CentredSection justify="flex-end" directionRow>
-                <ExitButton type="submit" value="X" onClick={props.onClick}/>
+                <ExitButton type="submit" value="X" onClick={props.closeHandler}/>
             </CentredSection>
             <CentredSection justify="center">
                 <H1>ADD MOVIE</H1>
