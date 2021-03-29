@@ -11,7 +11,6 @@ import {ModalObj} from "../components/Modals/MyModal";
 
 export const Header = (props) => {
 
-
     const [modalContent, setModalContent] = useState(false);
 
     function resetContent(e) {

@@ -1,7 +1,8 @@
-import React, {useState} from "react";
+import React from "react";
 import styled from "styled-components";
 import {ResultsFilter} from "../components/MainSectionComponents/ResultsFilter";
 import {Card} from "../components/MainSectionComponents/Card";
+import {useMocks} from "../components/Hooks/UseMocks";
 
 const MainSectionFlex = styled.div`
   background-color: #232323;
@@ -14,25 +15,20 @@ const MainSection = () => {
 
     // Todo: fetch from back-end
     let sectionsForFilter = ["section-1", "section-2", "section-3", "section-4"];
-    let inputs = [
-        {id: "card-1", name: "The Fight Club", release: "1999", jenre: "comedy, thriller"},
-        {id: "card-2", name: "Venom", release: "2018", jenre: "action, horror, science fiction"},
-        {id: "card-3", name: true, release: "Lala", jenre: 1234},
-      //  {id: "card-4"}
-    ];
 
-    const[filmCards, setFilmCards] = useState(inputs);
+    const [inputs, addFilm, removeFilm] = useMocks();
 
-    function deleteCard(cardId){
-        console.info("you about to delete card with id: "+cardId);
-        setFilmCards(filmCards.filter(item=>{ return (item.id !==cardId)}));
+    function deleteCard(cardId) {
+        removeFilm(cardId);
+        //addFilm({id: "card-4"});
+
     }
 
     return (
         <>
             <ResultsFilter sections={sectionsForFilter}/>
             <MainSectionFlex>
-                {filmCards.map((card) => (
+                {inputs.map((card) => (
                     <Card deleteCardHandler={deleteCard} name={card.name} release={card.release} jenre={card.jenre}
                           key={card.id} id={card.id}/>
                 ))}
