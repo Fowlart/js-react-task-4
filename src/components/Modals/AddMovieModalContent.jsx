@@ -13,11 +13,17 @@ import {
 
 export const AddMovieContent = (props) => {
 
+    const movieOverview = useRef();
+    const movieRuntime = useRef();
+    const movieJenre = useRef();
     const movieTitle = useRef();
+    const movieData = useRef();
+    const movieUrl = useRef();
 
     function submitHandler(e){
         e.preventDefault();
-        alert(movieTitle.current.value);
+        alert(movieOverview.current.value+"/"+movieRuntime.current.value+"/"+movieJenre.current.value+"/"+movieTitle.current.value+"/"+
+        movieData.current.value+"/"+movieUrl.current.value);
     }
 
     return (
@@ -32,26 +38,26 @@ export const AddMovieContent = (props) => {
                 <Label>TITLE</Label><ModalInput type="text" ref={movieTitle}/>
             </CentredSection>
             <CentredSection justify="center">
-                <Label>OVERVIEW</Label><ModalInput type="text"/>
+                <Label>OVERVIEW</Label><ModalInput type="text" ref={movieOverview}/>
             </CentredSection>
             <CentredSection>
-                <Label>RUNTIME</Label><ModalInput type="text"/>
+                <Label>RUNTIME</Label><ModalInput type="text" ref={movieRuntime}/>
             </CentredSection>
             <CentredSection justify="center">
-                <Label>MOVIE URL</Label><ModalInput type="text"/>
+                <Label>MOVIE URL</Label><ModalInput type="text" ref={movieUrl}/>
             </CentredSection>
             <CentredSection justify="center">
-                <Label>RELEASE DATE</Label><DatePicker type="date" id="date-picker"/>
+                <Label>RELEASE DATE</Label><DatePicker type="date" id="date-picker" ref={movieData}/>
             </CentredSection>
             <CentredSection justify="center">
-                <Label>GENRE</Label><Select name="genre">
+                <Label>GENRE</Label><Select name="genre" ref={movieJenre}>
                 <option value="comedy">Comedy</option>
                 <option value="drama">Drama</option>
             </Select>
             </CentredSection>
             <CentredSection justify="flex-end" directionRow>
                 <ResetButton type="submit" value="RESET"/>
-                <SubmitButton type="submit" value="SUBMIT" onClick={submitHandler} />
+                <SubmitButton type="submit" value="SUBMIT" onClick={submitHandler}/>
             </CentredSection>
         </>);
 };
