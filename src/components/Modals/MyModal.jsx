@@ -85,8 +85,9 @@ export const ModalObj = (props) => {
 
     function hide() {
         if (!modalVisible) {
-            dispatch("none");
+            dispatch(false);
             setModalPlaceHolder(false);
+            props.resetContentHandler();
         }
     }
 

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import logo from "../components/HeadersComponents/1.png";
 import FlexMain from "../components/HeadersComponents/FlexMain.styled";
 import InputStyle from "../components/HeadersComponents/InputStyle.styled";
@@ -8,20 +8,14 @@ import InputWraper from "../components/HeadersComponents/InputWraper.styled";
 import Input from "../components/Reusable/Input.styled";
 import Button from "../components/Reusable/Button.styled";
 import {ModalObj} from "../components/Modals/MyModal";
-import {AddMovieContent} from "../components/Modals/AddMovieModalContent";
-import {CardWrapper} from "../components/MainSectionComponents/CardComponents.Styled";
 
 export const Header = (props) => {
 
 
-    const [headerModalVisibleOuter, setHeaderModalVisibleOuter] = useState(false);
+    const [modalContent, setModalContent] = useState(false);
 
-    function onHeaderModal(e) {
-        setHeaderModalVisibleOuter(true);
-    }
-
-    function offHeaderModal(e) {
-        setHeaderModalVisibleOuter(false);
+    function resetContent(e) {
+        setModalContent(false);
     }
 
     //example: passing standard and custom props into simple element
@@ -34,7 +28,9 @@ export const Header = (props) => {
             <FlexMain>
                 <HeaderFlex>
                     <img src={logo}></img>
-                    <HeaderLink onClick={onHeaderModal}>ADD MOVIE</HeaderLink>
+                    <HeaderLink onClick={() => {
+                        setModalContent('add');
+                    }}>ADD MOVIE</HeaderLink>
                 </HeaderFlex>
                 <InputWraper>
                     <InputStyle>
@@ -44,7 +40,7 @@ export const Header = (props) => {
                     <Button type="submit" value="SEARCH"/>
                 </InputWraper>
             </FlexMain>
-            {headerModalVisibleOuter &&  <ModalObj content="add"/>}
+            <ModalObj content={modalContent} resetContentHandler={resetContent}/>}
         </>
     );
 };

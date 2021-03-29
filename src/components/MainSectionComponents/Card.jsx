@@ -80,11 +80,15 @@ export const Card = (props) => {
         console.log("card deleted");
     }
 
+    function resetContent(){
+        setModalContent(false);
+    }
+
     return (
         cardVisible &&
         <CardWrapper onMouseMove={setContextMenuButtonNonTransparent} onMouseLeave={setContextMenuButtonTransparent}>
 
-            <ModalObj deleteCardHandler={deleteCard} content={modalContent}/>
+            <ModalObj deleteCardHandler={deleteCard} content={modalContent} resetContentHandler={resetContent}/>
 
             <CardHeader><ThreeSpotButton onClick={switchContextMenu}
                                          transparent={transparent}
