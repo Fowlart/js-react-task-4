@@ -19,7 +19,7 @@ import PropTypes from 'prop-types';
 let cardNumber = 0;
 
 export const Card = (props) => {
-    const counter = useRef();
+
     // Example: rid of unnecessary variables in destructor
     const [name,] = useState(props.name);
     const [release,] = useState(props.release);
@@ -74,10 +74,9 @@ export const Card = (props) => {
     }
 
     function deleteCard(){
-        console.log("!")
         setCardVisible(false);
         props.deleteCardHandler(props.id);
-        console.log("card deleted");
+        console.log(`card with id ${props.id} deleted`);
     }
 
     function resetContent(){
