@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useRef} from "react";
 import {ExitButton} from "../Reusable/ExitButton.styled";
 import {
     CentredSection,
@@ -12,6 +12,14 @@ import {
 } from "./ModalsComponents.styled";
 
 export const AddMovieContent = (props) => {
+
+    const movieTitle = useRef();
+
+    function submitHandler(e){
+        e.preventDefault();
+        alert(movieTitle.current.value);
+    }
+
     return (
         <>
             <CentredSection justify="flex-end" directionRow>
@@ -21,7 +29,7 @@ export const AddMovieContent = (props) => {
                 <H1>ADD MOVIE</H1>
             </CentredSection>
             <CentredSection justify="center">
-                <Label>TITLE</Label><ModalInput type="text"/>
+                <Label>TITLE</Label><ModalInput type="text" ref={movieTitle}/>
             </CentredSection>
             <CentredSection justify="center">
                 <Label>OVERVIEW</Label><ModalInput type="text"/>
@@ -43,7 +51,7 @@ export const AddMovieContent = (props) => {
             </CentredSection>
             <CentredSection justify="flex-end" directionRow>
                 <ResetButton type="submit" value="RESET"/>
-                <SubmitButton type="submit" value="SUBMIT"/>
+                <SubmitButton type="submit" value="SUBMIT" onClick={submitHandler} />
             </CentredSection>
         </>);
 };
