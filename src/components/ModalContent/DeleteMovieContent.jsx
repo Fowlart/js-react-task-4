@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import Button from "../HeadersComponents/InputWraperInputWraper.styled";
-import {ExitButton} from "../Reusable/ExitButton.styled";
+import Button from "../HeadersComponents/HeaderInputWraperInputWraper.styled";
+import {ExitButton} from "../ui/ExitButton.styled";
 
 const CentredSection = styled.div`
   display: flex;

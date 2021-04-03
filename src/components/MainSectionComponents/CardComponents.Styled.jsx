@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Button from "../Reusable/Button.styled";
+import Button from "../ui/Button.styled";
 
 export const CardWrapper = styled.div`
   border: solid 2px #ffffff;

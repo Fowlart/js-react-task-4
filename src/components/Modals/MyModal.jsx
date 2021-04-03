@@ -1,8 +1,8 @@
 import React, {useEffect, useReducer, useState} from "react";
 import styled, {keyframes} from "styled-components";
-import {DeleteMovieContent} from "./DeleteMovieContent";
-import {EditMovieContent} from "./EditMovieContent";
-import {AddMovieContent} from "./AddMovieModalContent";
+import {DeleteMovieContent} from "../ModalContent/DeleteMovieContent";
+import {EditMovieContent} from "../ModalContent/EditMovieContent";
+import {AddMovieContent} from "../ModalContent/AddMovieModalContent";
 
 const grow = keyframes`
   0% {
@@ -99,4 +99,3 @@ export const ModalObj = (props) => {
         </ModalWrapper>
     );
 }
-

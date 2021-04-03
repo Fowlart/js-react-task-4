@@ -1,5 +1,5 @@
 import React from "react";
-import {ExitButton} from "../Reusable/ExitButton.styled";
+import {ExitButton} from "../ui/ExitButton.styled";
 import {
     CentredSection,
     DatePicker,
@@ -9,7 +9,7 @@ import {
     ResetButton,
     Select,
     SubmitButton
-} from "./ModalsComponents.styled";
+} from "../Modals/ModalsComponents.styled";
 
 
 export const EditMovieContent = (props) => {

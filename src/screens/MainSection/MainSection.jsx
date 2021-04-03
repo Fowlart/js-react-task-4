@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import {ResultsFilter} from "../components/MainSectionComponents/ResultsFilter";
-import {Card} from "../components/MainSectionComponents/Card";
-import {useMocks} from "../components/Hooks/UseMocks";
+import {ResultsFilter} from "../../components/MainSectionComponents/ResultsFilter";
+import {Card} from "../../components/MainSectionComponents/Card";
+import {useMocks} from "../../hooks/UseMocks";
 
 const MainSectionFlex = styled.div`
   background-color: #232323;
@@ -14,7 +14,7 @@ const MainSectionFlex = styled.div`
 const MainSection = () => {
 
     // Todo: fetch from back-end
-    let sectionsForFilter = ["section-1", "section-2", "section-3", "section-4"];
+    let sectionsForFilter = ["ALL FILMS", "DOCUMENTARY", "COMEDY", "HORROR","CRIME"];
 
     const [inputs, addFilm, removeFilm] = useMocks();
 

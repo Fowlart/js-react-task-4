@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from "react";
-import logo from "../components/HeadersComponents/1.png";
-import FlexMain from "../components/HeadersComponents/FlexMain.styled";
-import InputStyle from "../components/HeadersComponents/InputStyle.styled";
-import HeaderFlex from "../components/HeadersComponents/HeaderFlex.styled";
-import HeaderLink from "../components/HeadersComponents/HeaderLink.styled";
-import InputWraper from "../components/HeadersComponents/InputWraper.styled";
-import Input from "../components/Reusable/Input.styled";
-import Button from "../components/Reusable/Button.styled";
-import {ModalObj} from "../components/Modals/MyModal";
+import logo from "./1.png";
+import FlexMain from "./FlexMain.styled";
+import InputStyle from "./HeaderInputStyle.styled";
+import HeaderFlex from "./HeaderFlex.styled";
+import HeaderLink from "./HeaderLink.styled";
+import InputWraper from "./HeaderInputWraper.styled";
+import Input from "../ui/Input.styled";
+import Button from "../ui/Button.styled";
+import {ModalObj} from "../Modals/MyModal";
 
 export const Header = (props) => {
 

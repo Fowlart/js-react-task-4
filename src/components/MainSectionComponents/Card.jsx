@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from "react";
 import {ModalObj} from "../Modals/MyModal";
-import {EditMovieContent} from "../Modals/EditMovieContent";
-import {DeleteMovieContent} from "../Modals/DeleteMovieContent";
+import {EditMovieContent} from "../ModalContent/EditMovieContent";
+import {DeleteMovieContent} from "../ModalContent/DeleteMovieContent";
 import {
     CardContextMenu,
     CardContextMenuButton,
