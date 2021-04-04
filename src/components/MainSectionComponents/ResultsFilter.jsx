@@ -19,17 +19,31 @@ const FilterSection = styled(FilterContainer)`
   align-self: center;
   margin: 10px;
   transition: all ease;
-  color: gray;
-
-  :hover {
-    color: white;
-  }`;
+  color: white;`;
 
 const DivThinLine = styled.div`
   width: 100%;
   border: gray solid 1px;
   background-color: gray;
   height: 2%;
+  transition: all ease;
+`;
+
+const StyledResultsFilterWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  background-color: #232323;
+  border: solid 0px #232323;
+`;
+
+const ThinLineInnerDiv = styled.div`
+  width: ${props => props.width};
+  left: ${props => props.left};
+  position: relative;
+  border: red solid 1px;
+  background-color: red;
+  height: 1%;
+  transition: all ease;
 `;
 
 const grow_width = keyframes`
@@ -51,14 +65,26 @@ const hide = keyframes`
   }
 `;
 
-const ThinLineInnerDiv = styled.div`
-  width: ${props => props.width};
-  left:  ${props => props.left};
+const StyledSelect = styled.select`
+  color: white;
+  background-color: #232323;
+  font-size: 18px;
+  font-family: "Times New Roman";
+`;
+
+const StyledSpan = styled.span`
   position: relative;
-  border: red solid 1px;
-  background-color: red;
-  height: 1%;
-  transition: left linear;
+  font-size: 18px;
+  font-family: "Times New Roman";
+  color: gray;
+  margin-top: 4%;
+  margin-right: 30px;
+`;
+
+const SortingOptionsHolder = styled.div`
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
 `;
 
 export const ResultsFilter = (props) => {
@@ -67,40 +93,37 @@ export const ResultsFilter = (props) => {
     const refToContainer = useRef();
     const sectionWidths = useRef([]);
 
-    const [redLineWidth,setRedLineWidth] = useState("10px");
-    const [redLineLeft,setRedLineLeft] = useState("10px");
+    const [redLineWidth, setRedLineWidth] = useState("10px");
+    const [redLineLeft, setRedLineLeft] = useState("10px");
 
     // todo: this is a reference to a div which contains all section in the filter
     useEffect(() => {
         if (refToContainer.current) {
-            refToContainer.current.childNodes.forEach((section)=>{
+            refToContainer.current.childNodes.forEach((section) => {
                 sectionWidths.current.push(window.getComputedStyle(section).getPropertyValue("width"));
             });
         }
     }, [refToContainer.current]);
 
     useEffect(() => {
-       setRedLineWidth(sectionWidths.current[0]);
+        setRedLineWidth(sectionWidths.current[0]);
     }, []);
 
-    function onchangeRedLine(e){
+    function onchangeRedLine(e) {
 
-        let deviation =0;
+        let deviation = 0;
         let width = "";
 
-        refToContainer.current.childNodes.forEach((element)=>{
-           if (e.target===element) {
-               deviation= element.offsetLeft-6;
-               width = window.getComputedStyle(element).width
-           }
-
+        refToContainer.current.childNodes.forEach((element) => {
+            if (e.target === element) {
+                deviation = element.offsetLeft - 6;
+                width = window.getComputedStyle(element).width
+            }
         });
         console.log(deviation);
-        setRedLineLeft(deviation+"px");
+        setRedLineLeft(deviation + "px");
         setRedLineWidth(width);
     }
-
-
 
     let renderedSections = sections.map((section) => (
         <FilterSection onClick={onchangeRedLine} key={section} keyForSerch={section}>{section}</FilterSection>
@@ -108,8 +131,18 @@ export const ResultsFilter = (props) => {
 
     return (
         <>
-        <StyledResultsFilter ref={refToContainer} children={renderedSections}/>
-        <DivThinLine><ThinLineInnerDiv width={redLineWidth} left={redLineLeft}/></DivThinLine>
+            <StyledResultsFilterWrapper>
+                <StyledResultsFilter ref={refToContainer} children={renderedSections}/>
+                <SortingOptionsHolder>
+                    <StyledSpan>SORT BY</StyledSpan>
+                    <StyledSelect id="language-selector" name="language">
+                        <option value="RELEASE DATE">RELEASE DATE</option>
+                        <option value="OPTION-1">OPTION-1</option>
+                        <option value="OPTION-2">OPTION-2</option>
+                    </StyledSelect>
+                </SortingOptionsHolder>
+            </StyledResultsFilterWrapper>
+            <DivThinLine><ThinLineInnerDiv width={redLineWidth} left={redLineLeft}/></DivThinLine>
         </>
     );
 };

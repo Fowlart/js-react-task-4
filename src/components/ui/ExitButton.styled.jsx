@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Button from "../HeadersComponents/HeaderInputWraperInputWraper.styled";
+import Button from "./Button.styled";
 
 export const ExitButton = styled(Button)`
   background-color: #232323;
