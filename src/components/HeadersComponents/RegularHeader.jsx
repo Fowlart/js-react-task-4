@@ -1,17 +1,10 @@
 import logo from "./1.png";
 
-import Input from "../ui/Input.styled";
-import Button from "../ui/Button.styled";
+import Input from "../UI/Input.styled";
+import Button from "../UI/Button.styled";
 import React, {useState} from "react";
 import {ModalObj} from "../Modals/MyModal";
 import styled from "styled-components";
-
-const InputStyle = styled.div`
-  font-size: large;
-  display: flex;
-  flex-direction: column;
-  width: 60%;
-`;
 
 const HeaderFlex = styled.div`
   display: flex;
@@ -21,6 +14,14 @@ const HeaderFlex = styled.div`
   color: white;
   font-size: 24px;
 `;
+
+const InputStyle = styled.div`
+  font-size: large;
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+`;
+
 
 const HeaderLink = styled.div`
   color: red;
@@ -56,9 +57,7 @@ export const RegularHeader = () => {
         <>
             <HeaderFlex>
                 <img src={logo}></img>
-                <HeaderLink onClick={() => {
-                    setModalContent('add');
-                }}>ADD MOVIE</HeaderLink>
+                <HeaderLink onClick={() => {setModalContent('add');}}>ADD MOVIE</HeaderLink>
             </HeaderFlex>
             <InputWraper>
                 <InputStyle>

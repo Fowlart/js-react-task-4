@@ -10,7 +10,7 @@ export const useMocks = () => {
         jenre: "comedy, thriller"
     },
         {id: "card-2", name: "Venom", release: "2018", jenre: "action, horror, science fiction"},
-        {id: "card-3", name: true, release: "Lala", jenre: 1234}]);
+        {id: "card-3", name: true, release: "Lala", jenre: 1234},{id: "card-4", name: true, release: "Lala", jenre: 1234}]);
 
     return ([
         films, (film) => {

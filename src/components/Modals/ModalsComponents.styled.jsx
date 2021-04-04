@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import Input from "../ui/Input.styled";
-import Button from "../ui/Button.styled";
+import Input from "../UI/Input.styled";
+import Button from "../UI/Button.styled";
 
 export const CentredSection = styled.div`
   display: flex;

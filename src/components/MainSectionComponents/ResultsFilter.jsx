@@ -1,25 +1,26 @@
 import React, {useEffect, useRef, useState} from "react";
 import styled, {keyframes} from "styled-components";
+import {wrapMapToPropsConstant} from "react-redux/lib/connect/wrapMapToProps";
 
 const FilterContainer = styled.div`
+  font-size: 15px;
+  font-family: "Segoe UI",serif;
   background-color: #232323;
-  font-size: large;
   color: #ffffff;
   display: flex;
   flex-direction: row;
   justify-content: left;
   flex-wrap: wrap;`;
 
-//example: extending styles
-const StyledResultsFilter = styled(FilterContainer)`
-  font-weight: bold;
-  color: green;`;
-
 const FilterSection = styled(FilterContainer)`
   align-self: center;
   margin: 10px;
   transition: all ease;
-  color: white;`;
+  color: white;
+  :hover {
+    color: gray;
+  }
+`;
 
 const DivThinLine = styled.div`
   width: 100%;
@@ -36,6 +37,37 @@ const StyledResultsFilterWrapper = styled.div`
   border: solid 0px #232323;
 `;
 
+const grow_0 = keyframes`
+  0% {
+    width: 100%;
+  }
+  100% {
+    width: ${props => props.width};
+  }
+  0% {
+    left: 0px;
+  }
+  100% {
+    width: ${props => props.left};
+  }
+`;
+
+const grow_1 = keyframes`
+  0% {
+    width: 100%;
+  }
+  100% {
+    width: ${props => props.width};
+  }
+  0% {
+    left: 1px;
+  }
+  100% {
+    width: ${props => props.left};
+  }
+`;
+
+
 const ThinLineInnerDiv = styled.div`
   width: ${props => props.width};
   left: ${props => props.left};
@@ -43,39 +75,20 @@ const ThinLineInnerDiv = styled.div`
   border: red solid 1px;
   background-color: red;
   height: 1%;
-  transition: all ease;
-`;
-
-const grow_width = keyframes`
-  0% {
-    width: 1px;
-  }
-  100% {
-    width: 1000px;
-  }
-`;
-
-const hide = keyframes`
-
-  0% {
-    left: 1px;
-  }
-  100% {
-    left: 1000px;
-  }
+  animation: ${props => (props.animation%2===0)?grow_0:grow_1} 0.5s linear;
 `;
 
 const StyledSelect = styled.select`
   color: white;
   background-color: #232323;
-  font-size: 18px;
-  font-family: "Times New Roman";
+  font-size: 15px;
+  font-family: "Segoe UI",serif;
 `;
 
 const StyledSpan = styled.span`
   position: relative;
-  font-size: 18px;
-  font-family: "Times New Roman";
+  font-size: 15px;
+  font-family: "Segoe UI",serif;
   color: gray;
   margin-top: 4%;
   margin-right: 30px;
@@ -95,6 +108,7 @@ export const ResultsFilter = (props) => {
 
     const [redLineWidth, setRedLineWidth] = useState("10px");
     const [redLineLeft, setRedLineLeft] = useState("10px");
+    const [animation, setAnimation] = useState(0);
 
     // todo: this is a reference to a div which contains all section in the filter
     useEffect(() => {
@@ -109,30 +123,37 @@ export const ResultsFilter = (props) => {
         setRedLineWidth(sectionWidths.current[0]);
     }, []);
 
-    function onchangeRedLine(e) {
+    const refToSelectedSection = useRef();
 
+    function onchangeRedLine(e) {
         let deviation = 0;
         let width = "";
 
+        refToSelectedSection.current = e.target;
+
         refToContainer.current.childNodes.forEach((element) => {
             if (e.target === element) {
-                deviation = element.offsetLeft - 6;
+                deviation = element.offsetLeft;
                 width = window.getComputedStyle(element).width
             }
         });
-        console.log(deviation);
         setRedLineLeft(deviation + "px");
         setRedLineWidth(width);
+        let newNum = animation+1;
+        console.log(newNum);
+        setAnimation(newNum);
     }
 
     let renderedSections = sections.map((section) => (
         <FilterSection onClick={onchangeRedLine} key={section} keyForSerch={section}>{section}</FilterSection>
     ));
 
+    window.addEventListener('resize', (e)=>{onchangeRedLine({target: refToSelectedSection.current})});
+
     return (
         <>
             <StyledResultsFilterWrapper>
-                <StyledResultsFilter ref={refToContainer} children={renderedSections}/>
+                <FilterContainer ref={refToContainer} children={renderedSections}/>
                 <SortingOptionsHolder>
                     <StyledSpan>SORT BY</StyledSpan>
                     <StyledSelect id="language-selector" name="language">
@@ -142,7 +163,7 @@ export const ResultsFilter = (props) => {
                     </StyledSelect>
                 </SortingOptionsHolder>
             </StyledResultsFilterWrapper>
-            <DivThinLine><ThinLineInnerDiv width={redLineWidth} left={redLineLeft}/></DivThinLine>
+            <DivThinLine><ThinLineInnerDiv width={redLineWidth} left={redLineLeft} animation={animation}/></DivThinLine>
         </>
     );
 };

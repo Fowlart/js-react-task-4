@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import {ExitButton} from "../ui/ExitButton.styled";
-import Button from "../ui/Button.styled";
+import {ExitButton} from "../UI/ExitButton.styled";
+import Button from "../UI/Button.styled";
 
 const CentredSection = styled.div`
   display: flex;

@@ -14,14 +14,12 @@ const MainSectionFlex = styled.div`
 const MainSection = () => {
 
     // Todo: fetch from back-end
-    let sectionsForFilter = ["ALL FILMS", "DOCUMENTARY", "COMEDY", "HORROR","CRIME"];
+    let sectionsForFilter = ["ALL","DOCUMENTARY","COMEDY","HORROR","CRIME"];
 
     const [inputs, addFilm, removeFilm] = useMocks();
 
     function deleteCard(cardId) {
         removeFilm(cardId);
-        //addFilm({id: "card-4"});
-
     }
 
     return (

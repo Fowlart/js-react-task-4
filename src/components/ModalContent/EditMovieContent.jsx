@@ -1,5 +1,5 @@
 import React from "react";
-import {ExitButton} from "../ui/ExitButton.styled";
+import {ExitButton} from "../UI/ExitButton.styled";
 import {
     CentredSection,
     DatePicker,
