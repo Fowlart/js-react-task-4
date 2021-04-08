@@ -5,16 +5,17 @@ import {Card} from "../../components/MainSectionComponents/Card";
 import {useMocks} from "../../hooks/UseMocks";
 
 const MainSectionFlex = styled.div`
-  background-color: #232323;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: center;`;
+  justify-content: center;
+`;
+
 
 const MainSection = () => {
 
     // Todo: fetch from back-end
-    let sectionsForFilter = ["ALL","DOCUMENTARY","COMEDY","HORROR","CRIME"];
+    let sectionsForFilter = ["ALL", "DOCUMENTARY", "COMEDY", "HORROR", "CRIME"];
 
     const [inputs, addFilm, removeFilm] = useMocks();
 

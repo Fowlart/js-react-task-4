@@ -110,45 +110,9 @@ export const ResultsFilter = (props) => {
     const [redLineLeft, setRedLineLeft] = useState("10px");
     const [animation, setAnimation] = useState(0);
 
-    // todo: this is a reference to a div which contains all section in the filter
-    useEffect(() => {
-        if (refToContainer.current) {
-            refToContainer.current.childNodes.forEach((section) => {
-                sectionWidths.current.push(window.getComputedStyle(section).getPropertyValue("width"));
-            });
-        }
-    }, [refToContainer.current]);
-
-    useEffect(() => {
-        setRedLineWidth(sectionWidths.current[0]);
-    }, []);
-
-    const refToSelectedSection = useRef();
-
-    function onchangeRedLine(e) {
-        let deviation = 0;
-        let width = "";
-
-        refToSelectedSection.current = e.target;
-
-        refToContainer.current.childNodes.forEach((element) => {
-            if (e.target === element) {
-                deviation = element.offsetLeft;
-                width = window.getComputedStyle(element).width
-            }
-        });
-        setRedLineLeft(deviation + "px");
-        setRedLineWidth(width);
-        let newNum = animation+1;
-        console.log(newNum);
-        setAnimation(newNum);
-    }
-
     let renderedSections = sections.map((section) => (
-        <FilterSection onClick={onchangeRedLine} key={section} keyForSerch={section}>{section}</FilterSection>
+        <FilterSection key={section} keyForSerch={section}>{section}</FilterSection>
     ));
-
-    window.addEventListener('resize', (e)=>{onchangeRedLine({target: refToSelectedSection.current})});
 
     return (
         <>

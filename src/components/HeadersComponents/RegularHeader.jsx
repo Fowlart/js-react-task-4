@@ -45,6 +45,12 @@ const StyledSpan = styled.span`
   color: white;
 `;
 
+const Img = styled.img`
+  margin-top: 21px;
+  width: 211px;
+  height: 45px;
+`;
+
 export const RegularHeader = () => {
 
     const [modalContent, setModalContent] = useState(false);
@@ -56,8 +62,10 @@ export const RegularHeader = () => {
     return (
         <>
             <HeaderFlex>
-                <img src={logo}></img>
-                <HeaderLink onClick={() => {setModalContent('add');}}>ADD MOVIE</HeaderLink>
+                <Img src={logo}></Img>
+                <HeaderLink onClick={() => {
+                    setModalContent('add');
+                }}>ADD MOVIE</HeaderLink>
             </HeaderFlex>
             <InputWraper>
                 <InputStyle>

@@ -1,11 +1,10 @@
-import {RegularHeader} from "./RegularHeader";
 import React from "react";
+import {FilmHeader} from "./FilmHeader";
+import {RegularHeader} from "./RegularHeader";
 
-export const Header = (props) => {
-
-
+export const Header = () => {
 
     return (
-        <RegularHeader/>
+        <FilmHeader/>
     );
 };
