@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import {ResultsFilter} from "../../components/MainSectionComponents/ResultsFilter";
 import {Card} from "../../components/MainSectionComponents/Card";
-import {cardCounterStore} from "../../store/CardCounterStore";
+import {filmsStore} from "../../store/FilmsStore";
 
 const MainSectionFlex = styled.div`
   display: flex;
@@ -18,14 +18,14 @@ const MainSection = () => {
     let sectionsForFilter = ["ALL", "DOCUMENTARY", "COMEDY", "HORROR", "CRIME"];
 
     function deleteCard(cardId) {
-        cardCounterStore.dispatch({type: "REMOVE_FILM", cardId, filmId: cardId});
+        filmsStore.dispatch({type: "REMOVE_FILM", cardId, filmId: cardId});
     }
 
     return (
         <>
             <ResultsFilter sections={sectionsForFilter}/>
             <MainSectionFlex>
-                {cardCounterStore.getState().films.map((card) => (
+                {filmsStore.getState().films.map((card) => (
                     <Card deleteCardHandler={deleteCard} name={card.name} release={card.release} jenre={card.jenre}
                           key={card.id} id={card.id}/>
                 ))}

@@ -19,22 +19,18 @@ let films = [{
     release: "1999",
     jenre: "comedy, thriller"
 },
-    {id: "card-2", name: true, release: "Lala", jenre: 1234}];
+    {id: "card-2", name: true, release: "Lala", jenre: 1234},{id: "card-3"}];
 
-function counterReducer(state = {value: 2, films: films}, action) {
+function filmReducer(state = {filmCount: films.length, films: films}, action) {
     switch (action.type) {
-        case 'counter/incremented':
-            return {value: state.value + 1} // new state
-        case 'counter/decremented':
-            return {value: state.value - 1} // new state
         case 'ADD_FILM':
             return {
-                value: state.value + 1,
+                value: state.filmCount + 1,
                 films: state.films.push(action.film)
             }
         case 'REMOVE_FILM':
             return {
-                value: state.value - 1,
+                value: state.filmCount - 1,
                 films: state.films.filter(item => {
                     return (item.id !== action.filmId)
                 })
@@ -46,12 +42,12 @@ function counterReducer(state = {value: 2, films: films}, action) {
 
 // Create a Redux store holding the state of your app.
 // Its API is { subscribe, dispatch, getState }.
-export let cardCounterStore = createStore(counterReducer);
+export let filmsStore = createStore(filmReducer);
 
 // You can use subscribe() to update the UI in response to state changes.
 // Normally you'd use a view binding library (e.g. React Redux) rather than subscribe() directly.
 // There may be additional use cases where it's helpful to subscribe as well.
-cardCounterStore.subscribe(() => console.log("cardCounterStore state was changed, number of cards: " + cardCounterStore.getState().value));
+filmsStore.subscribe(() => console.log("filmsStore state was changed, number of cards: " + filmsStore.getState().value));
 
 
 
