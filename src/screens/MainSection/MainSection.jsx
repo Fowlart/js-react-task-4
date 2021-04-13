@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import {ResultsFilter} from "../../components/MainSectionComponents/ResultsFilter";
 import {Card} from "../../components/MainSectionComponents/Card";
-import {useMocks} from "../../hooks/UseMocks";
+import {cardCounterStore} from "../../store/CardCounterStore";
 
 const MainSectionFlex = styled.div`
   display: flex;
@@ -17,17 +17,15 @@ const MainSection = () => {
     // Todo: fetch from back-end
     let sectionsForFilter = ["ALL", "DOCUMENTARY", "COMEDY", "HORROR", "CRIME"];
 
-    const [inputs, addFilm, removeFilm] = useMocks();
-
     function deleteCard(cardId) {
-        removeFilm(cardId);
+        cardCounterStore.dispatch({type: "REMOVE_FILM", cardId, filmId: cardId});
     }
 
     return (
         <>
             <ResultsFilter sections={sectionsForFilter}/>
             <MainSectionFlex>
-                {inputs.map((card) => (
+                {cardCounterStore.getState().films.map((card) => (
                     <Card deleteCardHandler={deleteCard} name={card.name} release={card.release} jenre={card.jenre}
                           key={card.id} id={card.id}/>
                 ))}

@@ -16,8 +16,6 @@ import {
 } from "./CardComponents.Styled";
 import PropTypes from 'prop-types';
 
-let cardNumber = 0;
-
 export const Card = (props) => {
 
     // Example: rid of unnecessary variables in destructor
@@ -30,18 +28,6 @@ export const Card = (props) => {
     const [isContextMenuVisible, setContextMenuVisible] = useState(false);
 
     const [modalContent,setModalContent] = useState(false);
-
-    //Example: useEffectUsage
-    useEffect(() => {
-        cardNumber++;
-        console.log("card qty: " + cardNumber);
-
-        return function onUnmount() {
-            cardNumber--;
-            console.log("card qty: " + cardNumber);
-        };
-
-    }, [cardVisible]);
 
     //Todo: why no any type check?
     Card.propsTypes = {
