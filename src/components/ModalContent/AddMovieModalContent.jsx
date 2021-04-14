@@ -10,6 +10,7 @@ import {
     Select,
     SubmitButton
 } from "../Modals/ModalsComponents.styled";
+import {filmsStore} from "../../store/FilmsStore";
 
 export const AddMovieContent = (props) => {
 
@@ -24,6 +25,13 @@ export const AddMovieContent = (props) => {
         e.preventDefault();
         alert(movieOverview.current.value+"/"+movieRuntime.current.value+"/"+movieJenre.current.value+"/"+movieTitle.current.value+"/"+
         movieData.current.value+"/"+movieUrl.current.value);
+        filmsStore.dispatch({type:"ADD_FILM",payload: {
+                id: "card-5",
+                name: "The Fight Club",
+                release: "1999",
+                jenre: "comedy, thriller"
+            }});
+        props.closeHandler();
     }
 
     return (

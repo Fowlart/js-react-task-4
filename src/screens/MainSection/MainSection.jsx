@@ -3,6 +3,7 @@ import styled from "styled-components";
 import {ResultsFilter} from "../../components/MainSectionComponents/ResultsFilter";
 import {Card} from "../../components/MainSectionComponents/Card";
 import {filmsStore} from "../../store/FilmsStore";
+import {useDispatch, useSelector} from "react-redux";
 
 const MainSectionFlex = styled.div`
   display: flex;
@@ -16,16 +17,20 @@ const MainSection = () => {
 
     // Todo: fetch from back-end
     let sectionsForFilter = ["ALL", "DOCUMENTARY", "COMEDY", "HORROR", "CRIME"];
+    const dispatch = useDispatch()
 
     function deleteCard(cardId) {
-        filmsStore.dispatch({type: "REMOVE_FILM", cardId, filmId: cardId});
+        dispatch({type: "REMOVE_FILM", filmId: cardId});
     }
+
+    const currentFilms = state => state.films;
+    const films = useSelector(currentFilms);
 
     return (
         <>
             <ResultsFilter sections={sectionsForFilter}/>
             <MainSectionFlex>
-                {filmsStore.getState().films.map((card) => (
+                {films.map((card) => (
                     <Card deleteCardHandler={deleteCard} name={card.name} release={card.release} jenre={card.jenre}
                           key={card.id} id={card.id}/>
                 ))}

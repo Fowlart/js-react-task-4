@@ -18,7 +18,6 @@ import PropTypes from 'prop-types';
 
 export const Card = (props) => {
 
-    // Example: rid of unnecessary variables in destructor
     const [name,] = useState(props.name);
     const [release,] = useState(props.release);
     const [jenre,] = useState(props.jenre);
@@ -60,7 +59,8 @@ export const Card = (props) => {
     }
 
     function deleteCard(){
-        setCardVisible(false);
+        // todo: It is a bug, card make itself unvisible, but it is not deletes
+       // setCardVisible(false);
         props.deleteCardHandler(props.id);
         console.log(`card with id ${props.id} deleted`);
     }

@@ -23,17 +23,18 @@ let films = [{
 
 function filmReducer(state = {filmCount: films.length, films: films}, action) {
     switch (action.type) {
-        case 'ADD_FILM':
-            return {
-                value: state.filmCount + 1,
-                films: state.films.push(action.film)
-            }
         case 'REMOVE_FILM':
             return {
-                value: state.filmCount - 1,
+                filmCount: state.filmCount - 1,
                 films: state.films.filter(item => {
                     return (item.id !== action.filmId)
                 })
+            }
+        case 'ADD_FILM':
+            let newFilms = state.films.concat(action.payload);
+            return {
+                filmCount: state.filmCount + 1,
+                films: newFilms
             }
         default:
             return state
@@ -47,7 +48,12 @@ export let filmsStore = createStore(filmReducer);
 // You can use subscribe() to update the UI in response to state changes.
 // Normally you'd use a view binding library (e.g. React Redux) rather than subscribe() directly.
 // There may be additional use cases where it's helpful to subscribe as well.
-filmsStore.subscribe(() => console.log("filmsStore state was changed, number of cards: " + filmsStore.getState().value));
+filmsStore.subscribe(() =>
+    console.log("FilmsStore state was changed, number of cards: " + filmsStore.getState().filmCount, "; " +
+        "films: "+filmsStore.getState().films)
+);
+
+
 
 
 
