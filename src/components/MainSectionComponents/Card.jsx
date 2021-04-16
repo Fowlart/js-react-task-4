@@ -59,8 +59,6 @@ export const Card = (props) => {
     }
 
     function deleteCard(){
-        // todo: It is a bug, card make itself unvisible, but it is not deletes
-       // setCardVisible(false);
         props.deleteCardHandler(props.id);
         console.log(`card with id ${props.id} deleted`);
     }
@@ -73,7 +71,7 @@ export const Card = (props) => {
         cardVisible &&
         <CardWrapper onMouseMove={setContextMenuButtonNonTransparent} onMouseLeave={setContextMenuButtonTransparent}>
 
-            <ModalObj deleteCardHandler={deleteCard} content={modalContent} resetContentHandler={resetContent}/>
+            <ModalObj cardId={props.id} deleteCardHandler={deleteCard} content={modalContent} resetContentHandler={resetContent}/>
 
             <CardHeader><ThreeSpotButton onClick={switchContextMenu}
                                          transparent={transparent}

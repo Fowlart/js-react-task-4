@@ -58,10 +58,9 @@ export const ModalObj = (props) => {
                     deleteCardHandler={props.deleteCardHandler}
                     closeHandler={() => {
                     setModalVisible(false);
-
                 }}/>);
             case 'edit':
-                return (<EditMovieContent closeHandler={() => {
+                return (<EditMovieContent cardId={props.cardId} closeHandler={() => {
                     setModalVisible(false);}}
                 />);
             case 'add':
@@ -69,7 +68,7 @@ export const ModalObj = (props) => {
                     setModalVisible(false);}}
                 />);
             default:
-                return (null);
+                return null;
         }
     }
 

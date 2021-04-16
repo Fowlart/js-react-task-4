@@ -36,6 +36,13 @@ function filmReducer(state = {filmCount: films.length, films: films}, action) {
                 filmCount: state.filmCount + 1,
                 films: newFilms
             }
+        case 'EDIT_FILM':
+            let filmToEdit = state.films.find(film => {return action.payload.id===film.id});
+            console.log(filmToEdit);
+            return {
+                filmCount: state.filmCount,
+                films: state.films
+            }
         default:
             return state
     }

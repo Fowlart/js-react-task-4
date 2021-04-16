@@ -8,9 +8,9 @@ function App() {
     return (
         <React.StrictMode>
             <Provider store={filmsStore}>
-            <Header/>
-            <ErrorBoundaryMainSection/>
-                </Provider>
+                <Header/>
+                <ErrorBoundaryMainSection/>
+            </Provider>
         </React.StrictMode>
     );
 }

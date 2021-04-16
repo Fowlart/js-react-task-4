@@ -18,19 +18,22 @@ export const AddMovieContent = (props) => {
     const movieRuntime = useRef();
     const movieJenre = useRef();
     const movieTitle = useRef();
-    const movieData = useRef();
+    const movieDate = useRef();
     const movieUrl = useRef();
 
-    function submitHandler(e){
+    function submitHandler(e) {
         e.preventDefault();
-        alert(movieOverview.current.value+"/"+movieRuntime.current.value+"/"+movieJenre.current.value+"/"+movieTitle.current.value+"/"+
-        movieData.current.value+"/"+movieUrl.current.value);
-        filmsStore.dispatch({type:"ADD_FILM",payload: {
-                id: "card-5",
-                name: "The Fight Club",
-                release: "1999",
-                jenre: "comedy, thriller"
-            }});
+        filmsStore.dispatch({
+            type: "ADD_FILM", payload: {
+                id: movieTitle.current.value,
+                name: movieTitle.current.value,
+                release: movieDate.current.value,
+                jenre: movieJenre.current.value,
+                overview: movieOverview.current.value,
+                runtime: movieRuntime.current.value,
+                url: movieUrl.current.value
+            }
+        });
         props.closeHandler();
     }
 
@@ -55,7 +58,7 @@ export const AddMovieContent = (props) => {
                 <Label>MOVIE URL</Label><ModalInput type="text" ref={movieUrl}/>
             </CentredSection>
             <CentredSection justify="center">
-                <Label>RELEASE DATE</Label><DatePicker type="date" id="date-picker" ref={movieData}/>
+                <Label>RELEASE DATE</Label><DatePicker type="date" id="date-picker" ref={movieDate}/>
             </CentredSection>
             <CentredSection justify="center">
                 <Label>GENRE</Label><Select name="genre" ref={movieJenre}>

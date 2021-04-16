@@ -25,6 +25,7 @@ export const DeleteMovieContent = (props) => {
 
     function deleteParentCard(){
         if (props.deleteCardHandler!=null){
+            props.closeHandler();
             props.deleteCardHandler();
         }
     }
