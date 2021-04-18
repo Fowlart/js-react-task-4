@@ -11,6 +11,7 @@ import {
     SubmitButton
 } from "../Modals/ModalsComponents.styled";
 import {filmsStore} from "../../store/FilmsStore";
+import {Card} from "../MainSectionComponents/Card";
 
 
 export const EditMovieContent = (props) => {
@@ -26,8 +27,11 @@ export const EditMovieContent = (props) => {
     function submitHandler(){
 
         filmsStore.dispatch({
-            type: "EDIT_FILM", payload: {
-                id: cardID,
+            type: "EDIT_FILM",
+            deletedCardId: cardID,
+            payload: {
+                id: movieTitle.current.value,
+                key:movieTitle.current.value,
                 name: movieTitle.current.value,
                 release: movieDate.current.value,
                 jenre: movieJenre.current.value,

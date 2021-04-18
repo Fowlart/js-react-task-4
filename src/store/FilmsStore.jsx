@@ -37,11 +37,14 @@ function filmReducer(state = {filmCount: films.length, films: films}, action) {
                 films: newFilms
             }
         case 'EDIT_FILM':
-            let filmToEdit = state.films.find(film => {return action.payload.id===film.id});
-            console.log(filmToEdit);
+            // {id: "card-2", name: true, release: "Lala", jenre: 1234}
+            let newFilmsArray = state.films
+                .filter(film => {return (action.deletedCardId!==film.id)})
+                .concat(action.payload);
+            console.log(newFilmsArray)
             return {
                 filmCount: state.filmCount,
-                films: state.films
+                films: newFilmsArray
             }
         default:
             return state
