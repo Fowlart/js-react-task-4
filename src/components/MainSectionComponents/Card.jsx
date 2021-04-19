@@ -48,7 +48,7 @@ export const Card = (props) => {
         }
     }
 
-    function switchContextMenu(e) {
+    function switchContextMenu() {
         if (isContextMenuVisible) {
             setTransparent(true);
             setContextMenuVisible(false);
@@ -58,9 +58,9 @@ export const Card = (props) => {
         }
     }
 
+    //Todo: use useCallback
     function deleteCard(){
         props.deleteCardHandler(props.id);
-        console.log(`card with id ${props.id} deleted`);
     }
 
     function resetContent(){
