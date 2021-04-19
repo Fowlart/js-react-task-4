@@ -31,7 +31,7 @@ export const AddMovieContent = (props) => {
                 jenre: movieJenre.current.value,
                 overview: movieOverview.current.value,
                 runtime: movieRuntime.current.value,
-                url: movieUrl.current.value
+                img: movieUrl.current.value
             }
         });
         props.closeHandler();

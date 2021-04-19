@@ -31,7 +31,8 @@ const MainSection = () => {
             <ResultsFilter sections={sectionsForFilter}/>
             <MainSectionFlex>
                 {films.map((card) => (
-                    <Card deleteCardHandler={deleteCard} name={card.name} release={card.release} jenre={card.jenre} key={card.id} id={card.id}/>
+                    <Card deleteCardHandler={deleteCard} name={card.name} release={card.release} jenre={card.jenre} key={card.id}
+                          id={card.id} img={card.img} textColor={card.textColor}/>
                 ))}
             </MainSectionFlex>
         </>

@@ -17,7 +17,9 @@ let films = [{
     id: "card-1",
     name: "The Fight Club",
     release: "1999",
-    jenre: "comedy, thriller"
+    jenre: "comedy, thriller",
+    img: "https://m.media-amazon.com/images/I/619QNhZ+3EL.jpg",
+    textColor: "coral"
 },
     {id: "card-2", name: true, release: "Lala", jenre: 1234},{id: "card-3"}];
 

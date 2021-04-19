@@ -3,7 +3,9 @@ import Button from "../UI/Button.styled";
 
 export const CardWrapper = styled.div`
   border: solid 2px #ffffff;
-  color: #ffffff;
+  background-color: green;
+  color: ${props => (props.textColor)};
+  background-image: url("${props => (props.img)}");
   width: 270px;
   height: 400px;
   margin: 15px;

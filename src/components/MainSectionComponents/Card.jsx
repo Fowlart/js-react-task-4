@@ -1,7 +1,7 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useCallback, useState} from "react";
 import {ModalObj} from "../Modals/MyModal";
-import {EditMovieContent} from "../ModalContent/EditMovieContent";
-import {DeleteMovieContent} from "../ModalContent/DeleteMovieContent";
+import notFoundImg from "./not_found.png";
+
 import {
     CardContextMenu,
     CardContextMenuButton,
@@ -26,7 +26,7 @@ export const Card = (props) => {
     const [transparent, setTransparent] = useState(true);
     const [isContextMenuVisible, setContextMenuVisible] = useState(false);
 
-    const [modalContent,setModalContent] = useState(false);
+    const [modalContent, setModalContent] = useState(false);
 
     //Todo: why no any type check?
     Card.propsTypes = {
@@ -35,20 +35,15 @@ export const Card = (props) => {
         jenre: PropTypes.string
     }
 
-
-    function setContextMenuButtonTransparent() {
-        if (!isContextMenuVisible) {
+    const setContextMenuButtonTransparent = useCallback(() => {
             setTransparent(true);
-        }
-    }
+    }, []);
 
-    function setContextMenuButtonNonTransparent() {
-        if (!isContextMenuVisible) {
+    const setContextMenuButtonNonTransparent = useCallback(() => {
             setTransparent(false);
-        }
-    }
+    }, []);
 
-    function switchContextMenu() {
+    const switchContextMenu = useCallback(() => {
         if (isContextMenuVisible) {
             setTransparent(true);
             setContextMenuVisible(false);
@@ -56,30 +51,34 @@ export const Card = (props) => {
             setTransparent(false);
             setContextMenuVisible(true);
         }
-    }
+    }, [isContextMenuVisible]);
 
-    //Todo: use useCallback
-    function deleteCard(){
+    const deleteCard = useCallback(()=>{
         props.deleteCardHandler(props.id);
-    }
+    },[])
 
-    function resetContent(){
+    const resetContent = useCallback(()=> {
         setModalContent(false);
-    }
+    },[]);
 
     return (
         cardVisible &&
-        <CardWrapper onMouseMove={setContextMenuButtonNonTransparent} onMouseLeave={setContextMenuButtonTransparent}>
+        <CardWrapper textColor={props.textColor} img={props.img} onMouseMove={setContextMenuButtonNonTransparent} onMouseLeave={setContextMenuButtonTransparent}>
 
-            <ModalObj cardId={props.id} deleteCardHandler={deleteCard} content={modalContent} resetContentHandler={resetContent}/>
+            <ModalObj cardId={props.id} deleteCardHandler={deleteCard} content={modalContent}
+                      resetContentHandler={resetContent}/>
 
             <CardHeader><ThreeSpotButton onClick={switchContextMenu}
                                          transparent={transparent}
                                          isContextMenuVisible={isContextMenuVisible}><ThreeSpotButtonSpan>...</ThreeSpotButtonSpan></ThreeSpotButton></CardHeader>
             <CardMainSection>
                 <CardContextMenu visible={isContextMenuVisible}>
-                    <CardContextMenuButton onClick={()=>{setModalContent("edit")}} type="submit" value="EDIT"/>
-                    <CardContextMenuButton onClick={()=>{setModalContent("delete")}} type="submit" value="DELETE"/>
+                    <CardContextMenuButton onClick={() => {
+                        setModalContent("edit")
+                    }} type="submit" value="EDIT"/>
+                    <CardContextMenuButton onClick={() => {
+                        setModalContent("delete")
+                    }} type="submit" value="DELETE"/>
                 </CardContextMenu>
             </CardMainSection>
             <CardNameRelease>
@@ -95,4 +94,6 @@ Card.defaultProps = {
     name: `Very good film`,
     release: "2001",
     jenre: "unknown",
+    img: notFoundImg,
+    textColor: "white"
 }
