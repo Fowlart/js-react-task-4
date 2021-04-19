@@ -20,8 +20,7 @@ let films = [{
     jenre: "comedy, thriller",
     img: "https://m.media-amazon.com/images/I/619QNhZ+3EL.jpg",
     textColor: "coral"
-},
-    {id: "card-2", name: true, release: "Lala", jenre: 1234},{id: "card-3"}];
+}, {id: "card-3"}];
 
 function filmReducer(state = {filmCount: films.length, films: films}, action) {
     switch (action.type) {
