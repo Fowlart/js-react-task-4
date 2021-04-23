@@ -1,4 +1,4 @@
-import {createStore} from 'redux'
+import {applyMiddleware, createStore} from 'redux'
 
 /**
  * This is a reducer - a function that takes a current state value and an
@@ -13,17 +13,15 @@ import {createStore} from 'redux'
  * we use a switch statement, but it's not required.
  */
 
-let films = [{
-    id: "card-1",
-    name: "The Fight Club",
-    release: "1999",
-    jenre: "comedy, thriller",
-    img: "https://m.media-amazon.com/images/I/619QNhZ+3EL.jpg",
-    textColor: "coral"
-}, {id: "card-3"}];
-
-function filmReducer(state = {filmCount: films.length, films: films}, action) {
+function filmReducer(state = {filmCount: 0, films: [],isDataInPlace: false}, action) {
     switch (action.type) {
+        case 'ADD_INITIAL_DATA':
+            return {
+                ...state,
+                filmCount: action.payload.length,
+                films: action.payload,
+                isDataInPlace: action.isDataInPlace
+            }
         case 'REMOVE_FILM':
             return {
                 filmCount: state.filmCount - 1,
@@ -59,16 +57,27 @@ function filmReducer(state = {filmCount: films.length, films: films}, action) {
     }
 }
 
+const asyncFunctionMiddleware = filmsStore => next => action => {
+    // If the "action" is actually a function instead...
+    if (typeof action === 'function') {
+        // then call the function and pass `dispatch` and `getState` as arguments
+        return action(filmsStore.dispatch, filmsStore.getState)
+    }
+    // Otherwise, it's a normal action - send it onwards
+    return next(action)
+}
+
+const middlewareEnhancer = applyMiddleware(asyncFunctionMiddleware)
+
 // Create a Redux store holding the state of your app.
 // Its API is { subscribe, dispatch, getState }.
-export let filmsStore = createStore(filmReducer);
+export let filmsStore = createStore(filmReducer, middlewareEnhancer);
 
 // You can use subscribe() to update the UI in response to state changes.
 // Normally you'd use a view binding library (e.g. React Redux) rather than subscribe() directly.
 // There may be additional use cases where it's helpful to subscribe as well.
 filmsStore.subscribe(() =>
-    console.log("FilmsStore state was changed, number of cards: " + filmsStore.getState().filmCount, "; " +
-        "films: "+filmsStore.getState().films)
+    console.log("FilmsStore state was changed, number of cards: " + filmsStore.getState().filmCount)
 );
 
 
