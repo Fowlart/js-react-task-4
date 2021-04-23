@@ -73,6 +73,7 @@ const OopsText = () => {
 const ErrorBoundaryMainSection = () => {
     const dispatch = useDispatch();
     const isDataInPlace = useSelector(state => state.isDataInPlace);
+    const films = useSelector(state => state.films);
 
     useEffect(() => {
         dispatch(fetchFilms);

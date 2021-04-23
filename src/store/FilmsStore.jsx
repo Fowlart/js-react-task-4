@@ -24,6 +24,7 @@ function filmReducer(state = {filmCount: 0, films: [],isDataInPlace: false}, act
             }
         case 'REMOVE_FILM':
             return {
+                ...state,
                 filmCount: state.filmCount - 1,
                 films: state.films.filter(item => {
                     return (item.id !== action.filmId)
@@ -32,6 +33,7 @@ function filmReducer(state = {filmCount: 0, films: [],isDataInPlace: false}, act
         case 'ADD_FILM':
             let newFilms = state.films.concat(action.payload);
             return {
+                ...state,
                 filmCount: state.filmCount + 1,
                 films: newFilms
             }
