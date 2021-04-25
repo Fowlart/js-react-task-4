@@ -107,7 +107,6 @@ export const ResultsFilter = (props) => {
     const [sections,] = useState(props.sections);
 
     const refToContainer = useRef();
-    const sectionWidths = useRef([]);
     const selectedSortOption = useRef();
 
     const [redLineWidth, setRedLineWidth] = useState("10px");
