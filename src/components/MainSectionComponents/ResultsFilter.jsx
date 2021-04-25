@@ -117,7 +117,14 @@ export const ResultsFilter = (props) => {
     const films = useSelector(state => state.films);
     const dispatch = useDispatch();
 
-    function onFilterSectionClick(selectedGenre) {
+    function onFilterSectionClick(selectedGenre, event) {
+        let currentSectionWidth = event.target.getBoundingClientRect().width;
+        let currentSectionLeft = event.target.getBoundingClientRect().left-10;
+        setRedLineWidth(currentSectionWidth+"px");
+        setRedLineLeft(currentSectionLeft+"px");
+        let counter = animation+1;
+        setAnimation(counter);
+        console.log(`current section width: ${currentSectionWidth}, current section left: ${currentSectionLeft}`);
         let selectedGenreString = selectedGenre.section.toLowerCase();
         const fetchFilms = fetchMovies();
         const fetchFilmsFiltered = fetchMoviesFiltered(selectedGenreString);
@@ -129,8 +136,8 @@ export const ResultsFilter = (props) => {
     }
 
     let renderedSections = sections.map((section) => (
-        <FilterSection onClick={() => {
-            onFilterSectionClick({section})
+        <FilterSection onClick={(event) => {
+            onFilterSectionClick({section},event)
         }} key={section} keyForSearch={section}>{section}</FilterSection>
     ));
 
