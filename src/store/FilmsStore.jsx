@@ -1,4 +1,4 @@
-import {applyMiddleware, createStore} from 'redux'
+import {applyMiddleware, compose, createStore} from 'redux'
 
 /**
  * This is a reducer - a function that takes a current state value and an
@@ -69,11 +69,14 @@ const asyncFunctionMiddleware = filmsStore => next => action => {
     return next(action)
 }
 
-const middlewareEnhancer = applyMiddleware(asyncFunctionMiddleware)
+const middlewareEnhancer = applyMiddleware(asyncFunctionMiddleware);
+
+
 
 // Create a Redux store holding the state of your app.
 // Its API is { subscribe, dispatch, getState }.
-export let filmsStore = createStore(filmReducer, middlewareEnhancer);
+export const filmsStore = createStore(filmReducer, compose(middlewareEnhancer,
+    window.devToolsExtension ? window.devToolsExtension() : f => f));
 
 // You can use subscribe() to update the UI in response to state changes.
 // Normally you'd use a view binding library (e.g. React Redux) rather than subscribe() directly.
