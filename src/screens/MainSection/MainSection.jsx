@@ -3,6 +3,7 @@ import styled from "styled-components";
 import {ResultsFilter} from "../../components/MainSectionComponents/ResultsFilter";
 import {Card} from "../../components/MainSectionComponents/Card";
 import {useDispatch, useSelector} from "react-redux";
+import {fetchMovies} from "../../api_client/apiClient";
 
 const MainSectionFlex = styled.div`
   display: flex;
@@ -11,20 +12,9 @@ const MainSectionFlex = styled.div`
   justify-content: center;
 `;
 
-const fetchFilms = (dispatch, getState) => {
-    const requestOptions = {
-        method: 'GET',
-        redirect: 'follow'
-    };
-    fetch("http://localhost:8000/api/films", requestOptions)
-        .then(body => body.json())
-        .then(films => {
-            dispatch({type: 'ADD_INITIAL_DATA', payload: films, isDataInPlace: true})
-            // Check the updated store state after dispatching
-            const allFilms = getState().films;
-            console.log(allFilms);
-        });
-};
+
+
+const fetchFilms = fetchMovies();
 
 const MainSection = () => {
 
@@ -46,7 +36,7 @@ const MainSection = () => {
                     <Card deleteCardHandler={deleteCard}
                           name={card.name}
                           release={card.release}
-                          jenre={card.jenre}
+                          genre={card.genre}
                           key={card.id}
                           id={card.id} img={card.img} textColor={card.textColor}/>
                 ))}
@@ -68,7 +58,6 @@ const OopsText = () => {
         </OopsDiv>
     );
 };
-
 
 const ErrorBoundaryMainSection = () => {
     const dispatch = useDispatch();

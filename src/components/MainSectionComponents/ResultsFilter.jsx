@@ -1,10 +1,11 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useRef, useState} from "react";
 import styled, {keyframes} from "styled-components";
-import {wrapMapToPropsConstant} from "react-redux/lib/connect/wrapMapToProps";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchMovies, fetchMoviesFiltered} from "../../api_client/apiClient";
 
 const FilterContainer = styled.div`
   font-size: 15px;
-  font-family: "Segoe UI",serif;
+  font-family: "Segoe UI", serif;
   background-color: #232323;
   color: #ffffff;
   display: flex;
@@ -17,6 +18,7 @@ const FilterSection = styled(FilterContainer)`
   margin: 10px;
   transition: all ease;
   color: white;
+
   :hover {
     color: gray;
   }
@@ -75,20 +77,20 @@ const ThinLineInnerDiv = styled.div`
   border: red solid 1px;
   background-color: red;
   height: 1%;
-  animation: ${props => (props.animation%2===0)?grow_0:grow_1} 0.5s linear;
+  animation: ${props => (props.animation % 2 === 0) ? grow_0 : grow_1} 0.5s linear;
 `;
 
 const StyledSelect = styled.select`
   color: white;
   background-color: #232323;
   font-size: 15px;
-  font-family: "Segoe UI",serif;
+  font-family: "Segoe UI", serif;
 `;
 
 const StyledSpan = styled.span`
   position: relative;
   font-size: 15px;
-  font-family: "Segoe UI",serif;
+  font-family: "Segoe UI", serif;
   color: gray;
   margin-top: 4%;
   margin-right: 30px;
@@ -103,16 +105,67 @@ const SortingOptionsHolder = styled.div`
 export const ResultsFilter = (props) => {
 
     const [sections,] = useState(props.sections);
+
     const refToContainer = useRef();
     const sectionWidths = useRef([]);
+    const selectedSortOption = useRef();
 
     const [redLineWidth, setRedLineWidth] = useState("10px");
     const [redLineLeft, setRedLineLeft] = useState("10px");
     const [animation, setAnimation] = useState(0);
 
+    const films = useSelector(state => state.films);
+    const dispatch = useDispatch();
+
+    function onFilterSectionClick(selectedGenre) {
+        let selectedGenreString = selectedGenre.section.toLowerCase();
+        const fetchFilms = fetchMovies();
+        const fetchFilmsFiltered = fetchMoviesFiltered(selectedGenreString);
+        if (selectedGenreString === "all") {
+            dispatch(fetchFilms);
+        } else {
+            dispatch(fetchFilmsFiltered);
+        }
+    }
+
     let renderedSections = sections.map((section) => (
-        <FilterSection key={section} keyForSerch={section}>{section}</FilterSection>
+        <FilterSection onClick={() => {
+            onFilterSectionClick({section})
+        }} key={section} keyForSearch={section}>{section}</FilterSection>
     ));
+
+    function styledSelectChangeHandler() {
+        switch (selectedSortOption.current.value) {
+            case 'RELEASE DATE':
+                console.log('RELEASE DATE sorting...');
+                let newFilms1 = films.sort((a,b)=> {
+                    if (a.release < b.release) {
+                        return 1;
+                    }
+                    if (a.release> b.release) {
+                        return -1;
+                    }
+                    return 0;
+                }).slice();
+                dispatch({type:"ADD_INITIAL_DATA", payload: newFilms1, isDataInPlace: true})
+                return;
+            case 'ALPHABETICAL':
+                console.log('ALPHABETICAL sorting...');
+                let newFilms2 = films.sort((a,b)=> {
+                    let nameA = a.name.toUpperCase(); // ignore upper and lowercase
+                    let nameB = b.name.toUpperCase();
+                    if (nameA < nameB) {
+                        return -1;
+                    }
+                    if (nameA > nameB) {
+                        return 1;
+                    }
+                    return 0;
+                }).slice();
+                dispatch({type:"ADD_INITIAL_DATA", payload: newFilms2, isDataInPlace: true})
+                return;
+        }
+    }
 
     return (
         <>
@@ -120,10 +173,10 @@ export const ResultsFilter = (props) => {
                 <FilterContainer ref={refToContainer} children={renderedSections}/>
                 <SortingOptionsHolder>
                     <StyledSpan>SORT BY</StyledSpan>
-                    <StyledSelect id="language-selector" name="language">
+                    <StyledSelect id="language-selector" name="language" ref={selectedSortOption}
+                                  onChange={styledSelectChangeHandler}>
                         <option value="RELEASE DATE">RELEASE DATE</option>
-                        <option value="OPTION-1">OPTION-1</option>
-                        <option value="OPTION-2">OPTION-2</option>
+                        <option value="ALPHABETICAL">ALPHABETICAL</option>
                     </StyledSelect>
                 </SortingOptionsHolder>
             </StyledResultsFilterWrapper>

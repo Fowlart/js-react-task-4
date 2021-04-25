@@ -38,7 +38,7 @@ function filmReducer(state = {filmCount: 0, films: [],isDataInPlace: false}, act
                 films: newFilms
             }
         case 'EDIT_FILM':
-            // {id: "card-2", name: true, release: "Lala", jenre: 1234}
+            // {id: "card-2", name: true, release: "Lala", genre: 1234}
             // let newFilmsArray = state.films
             //     .filter(film => {return (action.deletedCardId!==film.id)})
             //     .concat(action.payload);

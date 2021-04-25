@@ -19,7 +19,7 @@ export const EditMovieContent = (props) => {
     const cardID=props.cardId;
     const movieOverview = useRef();
     const movieRuntime = useRef();
-    const movieJenre = useRef();
+    const movieGenre = useRef();
     const movieTitle = useRef();
     const movieDate = useRef();
     const movieUrl = useRef();
@@ -34,7 +34,7 @@ export const EditMovieContent = (props) => {
                 key:movieTitle.current.value,
                 name: movieTitle.current.value,
                 release: movieDate.current.value,
-                jenre: movieJenre.current.value,
+                genre: movieGenre.current.value,
                 overview: movieOverview.current.value,
                 runtime: movieRuntime.current.value,
                 img: movieUrl.current.value
@@ -67,7 +67,7 @@ export const EditMovieContent = (props) => {
                 <Label>RELEASE DATE</Label><DatePicker type="date" id="date-picker" ref={movieDate}/>
             </CentredSection>
             <CentredSection justify="center">
-                <Label>GENRE</Label><Select name="genre" id="genre" ref={movieJenre}>
+                <Label>GENRE</Label><Select name="genre" id="genre" ref={movieGenre}>
                 <option value="Comedy">Comedy</option>
                 <option value="Drama">Drama</option>
             </Select>

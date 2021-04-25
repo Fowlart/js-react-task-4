@@ -16,7 +16,7 @@ export const AddMovieContent = (props) => {
 
     const movieOverview = useRef();
     const movieRuntime = useRef();
-    const movieJenre = useRef();
+    const movieGenre = useRef();
     const movieTitle = useRef();
     const movieDate = useRef();
     const movieUrl = useRef();
@@ -28,7 +28,7 @@ export const AddMovieContent = (props) => {
                 id: movieTitle.current.value,
                 name: movieTitle.current.value,
                 release: movieDate.current.value,
-                jenre: movieJenre.current.value,
+                genre: movieGenre.current.value,
                 overview: movieOverview.current.value,
                 runtime: movieRuntime.current.value,
                 img: movieUrl.current.value
@@ -61,7 +61,7 @@ export const AddMovieContent = (props) => {
                 <Label>RELEASE DATE</Label><DatePicker type="date" id="date-picker" ref={movieDate}/>
             </CentredSection>
             <CentredSection justify="center">
-                <Label>GENRE</Label><Select name="genre" ref={movieJenre}>
+                <Label>GENRE</Label><Select name="genre" ref={movieGenre}>
                 <option value="comedy">Comedy</option>
                 <option value="drama">Drama</option>
             </Select>

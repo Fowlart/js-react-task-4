@@ -20,7 +20,7 @@ export const Card = (props) => {
 
     const [name,] = useState(props.name);
     const [release,] = useState(props.release);
-    const [jenre,] = useState(props.jenre);
+    const [genre,] = useState(props.genre);
 
     const [cardVisible, setCardVisible] = useState(true);
     const [transparent, setTransparent] = useState(true);
@@ -32,7 +32,7 @@ export const Card = (props) => {
     Card.propsTypes = {
         name: PropTypes.array,
         release: PropTypes.number,
-        jenre: PropTypes.string
+        genre: PropTypes.string
     }
 
     const setContextMenuButtonTransparent = useCallback(() => {
@@ -85,15 +85,15 @@ export const Card = (props) => {
                 <FilmNameSpan>{name}</FilmNameSpan>
                 <ReleaseSpan>{release}</ReleaseSpan>
             </CardNameRelease>
-            <span>{jenre}</span>
+            <span>{genre}</span>
         </CardWrapper>
     );
 };
 
 Card.defaultProps = {
-    name: `Very good film`,
-    release: "2001",
-    jenre: "unknown",
+    name:"Best film",
+    release: 2001,
+    genre: "crime",
     img: notFoundImg,
-    textColor: "white"
+    textColor: "red"
 }
