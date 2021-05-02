@@ -38,18 +38,11 @@ function filmReducer(state = {filmCount: 0, films: [],isDataInPlace: false}, act
                 films: newFilms
             }
         case 'EDIT_FILM':
-            // {id: "card-2", name: true, release: "Lala", genre: 1234}
-            // let newFilmsArray = state.films
-            //     .filter(film => {return (action.deletedCardId!==film.id)})
-            //     .concat(action.payload);
-            let newFilmsArr = [...state.films];
-            newFilmsArr.forEach( film => {
-                if (film.id === action.payload.id) {
-                    film = action.payload;
-                }
-            });
+            console.log(action.payload);
+            console.log(action.deletedCardId)
+            let newFilmsArr = state.films.filter( film => film.id !== action.deletedCardId).slice();
+            newFilmsArr.push(action.payload);
             console.log(newFilmsArr);
-
             return {
                 ...state,
                 films: newFilmsArr
@@ -70,7 +63,6 @@ const asyncFunctionMiddleware = filmsStore => next => action => {
 }
 
 const middlewareEnhancer = applyMiddleware(asyncFunctionMiddleware);
-
 
 
 // Create a Redux store holding the state of your app.

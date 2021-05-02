@@ -6,6 +6,7 @@ import Button from "../UI/Button.styled";
 export const CentredSection = styled.div`
   display: flex;
   height: 10%;
+  margin-top: 10px;
   justify-content: ${props => props.justify};
   flex-direction: ${(props) => (props.directionRow ? "row" : "column")};
 `;

@@ -65,8 +65,7 @@ export const Card = (props) => {
         cardVisible &&
         <CardWrapper textColor={props.textColor} img={props.img} onMouseMove={setContextMenuButtonNonTransparent} onMouseLeave={setContextMenuButtonTransparent}>
 
-            <ModalObj cardId={props.id} deleteCardHandler={deleteCard} content={modalContent}
-                      resetContentHandler={resetContent}/>
+            <ModalObj cardId={props.id} deleteCardHandler={deleteCard} content={modalContent} resetContentHandler={resetContent}/>
 
             <CardHeader><ThreeSpotButton onClick={switchContextMenu}
                                          transparent={transparent}

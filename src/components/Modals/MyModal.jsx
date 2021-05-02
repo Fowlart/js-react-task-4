@@ -3,6 +3,10 @@ import styled, {keyframes} from "styled-components";
 import {DeleteMovieContent} from "../ModalContent/DeleteMovieContent";
 import {EditMovieContent} from "../ModalContent/EditMovieContent";
 import {AddMovieContent} from "../ModalContent/AddMovieModalContent";
+import Basic from "../ModalContent/FormsExapmles/BFE";
+import {FieldLevelValidationExample} from "../ModalContent/FormsExapmles/FieldLevelValidationForm";
+import {ManuallyTriggeringValidation} from "../ModalContent/FormsExapmles/ManuallyTriggeringValidation";
+import {NestedExample} from "../ModalContent/FormsExapmles/NestedObjects";
 
 const grow = keyframes`
   0% {
@@ -67,6 +71,8 @@ export const ModalObj = (props) => {
                 return (<AddMovieContent closeHandler={() => {
                     setModalVisible(false);}}
                 />);
+            case 'formik':
+                return (<NestedExample/>)
             default:
                 return null;
         }
