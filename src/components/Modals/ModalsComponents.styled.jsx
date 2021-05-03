@@ -26,7 +26,7 @@ export const ModalInput = styled(Input)`
   border: solid gold 1px;
 `;
 
-export const DatePicker = styled.input`
+export const MyDatePicker = styled.input`
   background-color: white;
   color: black;
   width: 36%;

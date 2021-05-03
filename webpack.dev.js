@@ -49,6 +49,10 @@ module.exports = {
                         loader: 'url-loader?limit=10000&content=static&name=images/[name].[ext]'
                     }
                 ]
+            },
+            {
+                test: /\.css$/i,
+                use: ["style-loader", "css-loader"],
             }
         ]
     }

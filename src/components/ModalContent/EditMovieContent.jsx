@@ -2,7 +2,7 @@ import React, {useRef} from "react";
 import {ExitButton} from "../UI/ExitButton.styled";
 import {
     CentredSection,
-    DatePicker,
+    MyDatePicker,
     H1,
     Label,
     ModalInput,
@@ -11,8 +11,10 @@ import {
     SubmitButton
 } from "../Modals/ModalsComponents.styled";
 import {filmsStore} from "../../store/FilmsStore";
-import {Field, Form, Formik} from "formik";
+import {Field, Form, Formik, useField, useFormikContext} from "formik";
 import styled from "styled-components";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const MyField = styled(Field)`
   background-color: black;
@@ -20,28 +22,56 @@ const MyField = styled(Field)`
   width: 75%;
   height: 40%;
   left: 20px;
-  padding: 0px;
+  padding: 5px;
   border: solid gold 1px;
 `;
-
 
 function validateTitle(value) {
     let error;
     if (!value) {
-        error = 'Required';
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
-        error = 'Invalid title';
+        error = 'Required!';
     }
     return error;
 }
 
-function validateUsername(value) {
+function validateReleaseDate(value) {
+    console.log(value);
     let error;
-    if (value === 'admin') {
-        error = 'Nice try!';
+    if (!value) {
+        error = 'Required!';
+    } else if (value>new Date().getFullYear()) {
+        error = 'Invalid date!';
     }
     return error;
 }
+
+function validateRuntime(value) {
+    console.log(value);
+    let error;
+    if (!value) {
+        error = 'Required!';
+    }
+    return error;
+}
+
+export const DatePickerField = ({ ...props }) => {
+    const { setFieldValue } = useFormikContext();
+    const [field] = useField(props);
+    return (
+        <DatePicker dateFormat="yyyy"
+                    showMonthDropdown={false}
+                    showYearDropdown={true}
+                    showDayDropdown={false}
+
+            {...field}
+            {...props}
+            selected={(field.value && new Date(field.value)) || null}
+            onChange={val => {
+                setFieldValue(field.name, val);
+            }}
+        />
+    );
+};
 
 
 export const EditMovieContent = (props) => {
@@ -82,7 +112,7 @@ export const EditMovieContent = (props) => {
                 <H1>EDIT MOVIE</H1>
             </CentredSection>
 
-            <Formik initialValues={{username: 'username', title: 'title',}} onSubmit={values => {
+            <Formik initialValues={{date: '', title: 'title', runtime: "120min",}} onSubmit={values => {
                 console.log(values);
             }}>
                 {({errors, touched, isValidating}) => (
@@ -95,26 +125,28 @@ export const EditMovieContent = (props) => {
                         </CentredSection>
 
                         <CentredSection justify="center">
-                            <Label>TITLE</Label>
-                            <MyField name="username" validate={validateUsername}/>
-                            {errors.username && touched.username && <div>{errors.username}</div>}
+                            <Label>RELEASE DATE</Label>
+                            <DatePickerField name="date" validate={validateReleaseDate}/>
+                            {errors.date && touched.date && <div>{errors.date}</div>}
                         </CentredSection>
 
-                        <CentredSection>
-                            <Label>RUNTIME</Label><ModalInput type="text" ref={movieRuntime}/>
+                        <CentredSection justify="center">
+                            <Label>RUNTIME</Label>
+                            <MyField name="runtime" validate={validateRuntime}/>
+                            {errors.runtime && touched.runtime && <div>{errors.runtime}</div>}
                         </CentredSection>
+
                         <CentredSection justify="center">
                             <Label>MOVIE URL</Label><ModalInput type="text" ref={movieUrl}/>
                         </CentredSection>
-                        <CentredSection justify="center">
-                            <Label>RELEASE DATE</Label><DatePicker type="date" id="date-picker" ref={movieDate}/>
-                        </CentredSection>
+
                         <CentredSection justify="center">
                             <Label>GENRE</Label><Select name="genre" id="genre" ref={movieGenre}>
                             <option value="Comedy">Comedy</option>
                             <option value="Drama">Drama</option>
                         </Select>
                         </CentredSection>
+
                         <CentredSection justify="flex-end" directionRow>
                             <ResetButton type="submit" value="RESET"/>
                             <SubmitButton onClick={submitHandler} type="submit" value="SAVE"/>

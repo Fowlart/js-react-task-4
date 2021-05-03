@@ -2,7 +2,6 @@ import React, {useRef} from "react";
 import {ExitButton} from "../UI/ExitButton.styled";
 import {
     CentredSection,
-    DatePicker,
     H1,
     Label,
     ModalInput,
