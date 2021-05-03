@@ -4,7 +4,7 @@ import {
     CentredSection,
     H1,
     Label,
-    ModalInput,
+    ModalInput, MyDatePicker,
     ResetButton,
     Select,
     SubmitButton
@@ -57,7 +57,7 @@ export const AddMovieContent = (props) => {
                 <Label>MOVIE URL</Label><ModalInput type="text" ref={movieUrl}/>
             </CentredSection>
             <CentredSection justify="center">
-                <Label>RELEASE DATE</Label><DatePicker type="date" id="date-picker" ref={movieDate}/>
+                <Label>RELEASE DATE</Label><MyDatePicker type="date" id="date-picker" ref={movieDate}/>
             </CentredSection>
             <CentredSection justify="center">
                 <Label>GENRE</Label><Select name="genre" ref={movieGenre}>

@@ -1,15 +1,6 @@
 import React, {useRef} from "react";
 import {ExitButton} from "../UI/ExitButton.styled";
-import {
-    CentredSection,
-    MyDatePicker,
-    H1,
-    Label,
-    ModalInput,
-    ResetButton,
-    Select,
-    SubmitButton
-} from "../Modals/ModalsComponents.styled";
+import {CentredSection, H1, Label, ResetButton, SubmitButton} from "../Modals/ModalsComponents.styled";
 import {filmsStore} from "../../store/FilmsStore";
 import {Field, Form, Formik, useField, useFormikContext} from "formik";
 import styled from "styled-components";
@@ -17,12 +8,22 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 const MyField = styled(Field)`
-  background-color: black;
+  background-color: #232323;
   color: white;
   width: 75%;
   height: 40%;
   left: 20px;
   padding: 5px;
+  border: solid gold 1px;
+  font-family: "Segoe UI", serif;
+`;
+
+const StyledSelect = styled(Field)`
+  width: 22%;
+  color: white;
+  background-color: #232323;
+  font-size: 15px;
+  font-family: "Segoe UI", serif;
   border: solid gold 1px;
 `;
 
@@ -39,7 +40,7 @@ function validateReleaseDate(value) {
     let error;
     if (!value) {
         error = 'Required!';
-    } else if (value>new Date().getFullYear()) {
+    } else if (value > new Date().getFullYear()) {
         error = 'Invalid date!';
     }
     return error;
@@ -63,8 +64,8 @@ function validateUrl(value) {
     return error;
 }
 
-export const DatePickerField = ({ ...props }) => {
-    const { setFieldValue } = useFormikContext();
+export const DatePickerField = ({...props}) => {
+    const {setFieldValue} = useFormikContext();
     const [field] = useField(props);
     return (
         <DatePicker dateFormat="yyyy"
@@ -72,12 +73,12 @@ export const DatePickerField = ({ ...props }) => {
                     showYearDropdown={true}
                     showDayDropdown={false}
 
-            {...field}
-            {...props}
-            selected={(field.value && new Date(field.value)) || null}
-            onChange={val => {
-                setFieldValue(field.name, val);
-            }}
+                    {...field}
+                    {...props}
+                    selected={(field.value && new Date(field.value)) || null}
+                    onChange={val => {
+                        setFieldValue(field.name, val);
+                    }}
         />
     );
 };
@@ -121,7 +122,7 @@ export const EditMovieContent = (props) => {
                 <H1>EDIT MOVIE</H1>
             </CentredSection>
 
-            <Formik initialValues={{date: '', title: 'title', runtime: "120min", url:"",}} onSubmit={values => {
+            <Formik initialValues={{date: '', title: 'title', runtime: "120min", url: "",genre:"Comedy"}} onSubmit={values => {
                 console.log(values);
             }}>
                 {({errors, touched, isValidating}) => (
@@ -148,13 +149,14 @@ export const EditMovieContent = (props) => {
                         </CentredSection>
 
                         <CentredSection justify="center">
-                            <Label>GENRE</Label><Select name="genre" id="genre" ref={movieGenre}>
-                            <option value="Comedy">Comedy</option>
-                            <option value="Drama">Drama</option>
-                        </Select>
+                            <Label>GENRE{errors.genre && touched.genre && `: ${errors.genre}`}</Label>
+                            <StyledSelect as="select" name="genre" id="genre">
+                                <option value="Comedy">Comedy</option>
+                                <option value="Drama">Drama</option>
+                            </StyledSelect>
                         </CentredSection>
 
-                        <CentredSection justify="flex-end" directionRow>
+                        <CentredSection justify="center" directionRow>
                             <ResetButton type="submit" value="RESET"/>
                             <SubmitButton onClick={submitHandler} type="submit" value="SAVE"/>
                         </CentredSection>

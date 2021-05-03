@@ -6,7 +6,8 @@ import Button from "../UI/Button.styled";
 export const CentredSection = styled.div`
   display: flex;
   height: 10%;
-  margin-top: 10px;
+  margin-top: 20px;
+  margin-bottom: 5px;
   justify-content: ${props => props.justify};
   flex-direction: ${(props) => (props.directionRow ? "row" : "column")};
 `;
@@ -45,18 +46,15 @@ export const Select = styled.select`
 `;
 
 export const Label = styled.label`
-  margin-top: 11px;
   color: red;
 `;
 
 export const ResetButton = styled(Button)`
   background-color: #232323;
   color: red;
-  height: 50%;
   border: solid red 2px;
 `;
 
 export const SubmitButton = styled(Button)`
-  height: 50%;
   border: solid black 2px;
 `;
