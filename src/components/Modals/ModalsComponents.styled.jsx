@@ -45,6 +45,7 @@ export const Select = styled.select`
 `;
 
 export const Label = styled.label`
+  margin-top: 11px;
   color: red;
 `;
 

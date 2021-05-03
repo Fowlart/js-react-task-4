@@ -54,6 +54,15 @@ function validateRuntime(value) {
     return error;
 }
 
+function validateUrl(value) {
+    console.log(value);
+    let error;
+    if (!value) {
+        error = 'Required!';
+    }
+    return error;
+}
+
 export const DatePickerField = ({ ...props }) => {
     const { setFieldValue } = useFormikContext();
     const [field] = useField(props);
@@ -112,32 +121,30 @@ export const EditMovieContent = (props) => {
                 <H1>EDIT MOVIE</H1>
             </CentredSection>
 
-            <Formik initialValues={{date: '', title: 'title', runtime: "120min",}} onSubmit={values => {
+            <Formik initialValues={{date: '', title: 'title', runtime: "120min", url:"",}} onSubmit={values => {
                 console.log(values);
             }}>
                 {({errors, touched, isValidating}) => (
                     <Form>
 
                         <CentredSection justify="center">
-                            <Label>TITLE</Label>
+                            <Label>TITLE{errors.title && touched.title && `: ${errors.title}`}</Label>
                             <MyField name="title" validate={validateTitle}/>
-                            {errors.title && touched.title && <div>{errors.title}</div>}
                         </CentredSection>
 
                         <CentredSection justify="center">
-                            <Label>RELEASE DATE</Label>
+                            <Label>RELEASE DATE{errors.date && touched.date && `: ${errors.date}`}</Label>
                             <DatePickerField name="date" validate={validateReleaseDate}/>
-                            {errors.date && touched.date && <div>{errors.date}</div>}
                         </CentredSection>
 
                         <CentredSection justify="center">
-                            <Label>RUNTIME</Label>
+                            <Label>RUNTIME{errors.runtime && touched.runtime && `: ${errors.runtime}`}</Label>
                             <MyField name="runtime" validate={validateRuntime}/>
-                            {errors.runtime && touched.runtime && <div>{errors.runtime}</div>}
                         </CentredSection>
 
                         <CentredSection justify="center">
-                            <Label>MOVIE URL</Label><ModalInput type="text" ref={movieUrl}/>
+                            <Label>MOVIE URL{errors.url && touched.url && `: ${errors.url}`}</Label>
+                            <MyField name="url" validate={validateUrl}/>
                         </CentredSection>
 
                         <CentredSection justify="center">
